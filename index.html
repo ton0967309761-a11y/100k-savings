@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>💡ผมไม่ได้ทำความฝันให้สำเร็จในวันเดียว 🕰🦥</title>
+
     <style>
         :root {
             --primary: #10b981;
@@ -23,7 +25,13 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Sukhumvit Set', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family:
+                'Sukhumvit Set',
+                'Segoe UI',
+                Tahoma,
+                Geneva,
+                Verdana,
+                sans-serif;
         }
 
         body {
@@ -39,7 +47,11 @@
             text-align: center;
             margin-bottom: 20px;
             padding: 18px 15px;
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            background: linear-gradient(
+                135deg,
+                #1e293b 0%,
+                #0f172a 100%
+            );
             border-bottom: 2px solid var(--primary);
             border-radius: 12px;
         }
@@ -59,7 +71,8 @@
 
         .summary-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns:
+                repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
             margin-bottom: 20px;
         }
@@ -69,7 +82,8 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 18px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            box-shadow:
+                0 4px 6px -1px rgba(0, 0, 0, 0.3);
         }
 
         .card-title {
@@ -82,6 +96,7 @@
             justify-content: space-between;
             border-bottom: 1px solid var(--border);
             padding-bottom: 8px;
+            gap: 10px;
         }
 
         .stat-value {
@@ -107,14 +122,20 @@
 
         .progress-bar {
             height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--primary),
+                    var(--secondary)
+                );
             width: 0%;
             transition: width 0.4s ease;
         }
 
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns:
+                repeat(auto-fit, minmax(180px, 1fr));
             gap: 12px;
             margin-bottom: 15px;
         }
@@ -130,7 +151,8 @@
             margin-bottom: 4px;
         }
 
-        input, select {
+        input,
+        select {
             padding: 10px;
             border-radius: 6px;
             border: 1px solid var(--border);
@@ -139,7 +161,8 @@
             font-size: 0.9rem;
         }
 
-        input:focus {
+        input:focus,
+        select:focus {
             outline: 1px solid var(--primary);
         }
 
@@ -176,9 +199,24 @@
             border-color: var(--danger);
         }
 
+        .btn-cancel {
+            background-color: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            padding: 10px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-cancel:hover {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
         .history-table-container {
             overflow-x: auto;
-            max-height: 400px;
+            max-height: 500px;
             overflow-y: auto;
         }
 
@@ -186,9 +224,11 @@
             width: 100%;
             border-collapse: collapse;
             font-size: 0.85rem;
+            min-width: 850px;
         }
 
-        th, td {
+        th,
+        td {
             padding: 10px 12px;
             text-align: left;
             border-bottom: 1px solid var(--border);
@@ -200,6 +240,7 @@
             position: sticky;
             top: 0;
             background: #1e293b;
+            z-index: 2;
         }
 
         .tag {
@@ -210,9 +251,20 @@
             font-weight: bold;
         }
 
-        .tag-grab { background: rgba(16, 185, 129, 0.2); color: #34d399; }
-        .tag-extra { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
-        .tag-dime { background: rgba(139, 92, 246, 0.2); color: #c084fc; }
+        .tag-grab {
+            background: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+        }
+
+        .tag-extra {
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+        }
+
+        .tag-dime {
+            background: rgba(139, 92, 246, 0.2);
+            color: #c084fc;
+        }
 
         .type-badge {
             display: inline-block;
@@ -221,16 +273,49 @@
             font-size: 0.7rem;
             margin-right: 5px;
         }
-        .badge-savings { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid #10b981; }
-        .badge-buy { background: rgba(139, 92, 246, 0.15); color: #c084fc; border: 1px solid #8b5cf6; }
-        .badge-sell { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid #f59e0b; }
 
-        .delete-btn {
-            color: var(--danger);
+        .badge-savings {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border: 1px solid #10b981;
+        }
+
+        .badge-buy {
+            background: rgba(139, 92, 246, 0.15);
+            color: #c084fc;
+            border: 1px solid #8b5cf6;
+        }
+
+        .badge-sell {
+            background: rgba(245, 158, 11, 0.15);
+            color: #fbbf24;
+            border: 1px solid #f59e0b;
+        }
+
+        .delete-btn,
+        .edit-btn {
             background: none;
             border: none;
             cursor: pointer;
             font-size: 0.9rem;
+            margin: 0 2px;
+            padding: 4px;
+        }
+
+        .delete-btn {
+            color: var(--danger);
+        }
+
+        .edit-btn {
+            color: var(--secondary);
+        }
+
+        .delete-btn:hover {
+            transform: scale(1.15);
+        }
+
+        .edit-btn:hover {
+            transform: scale(1.15);
         }
 
         .empty-msg {
@@ -243,122 +328,522 @@
         .invest-field {
             display: none;
         }
+
+        .edit-box {
+            display: none;
+            margin-bottom: 20px;
+            border: 1px solid var(--secondary);
+        }
+
+        .edit-box.active {
+            display: block;
+        }
+
+        .edit-title {
+            color: var(--secondary);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .form-actions .btn {
+            flex: 1;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 8px;
+            }
+
+            .card {
+                padding: 12px;
+            }
+
+            h1 {
+                font-size: 1.2rem;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
+
 <body>
 
     <header>
-        <h1>💡ผมไม่ได้ทำความฝันให้สำเร็จในวันเดียว 🕰🦥</h1>
-        <p class="subtitle">💡แค่ผมเดินเข้าใกล้มันมากขึ้นในทุกวันก็พอ 🕰️🦥</p>
+        <h1>
+            💡ผมไม่ได้ทำความฝันให้สำเร็จในวันเดียว 🕰🦥
+        </h1>
+
+        <p class="subtitle">
+            💡แค่ผมเดินเข้าใกล้มันมากขึ้นในทุกวันก็พอ 🕰️🦥
+        </p>
     </header>
 
-    <div class="card" style="margin-bottom:20px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+    <!-- USER -->
+    <div
+        class="card"
+        style="
+            margin-bottom:20px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:12px;
+            flex-wrap:wrap;
+        "
+    >
         <div>
             <div class="stat-label">ผู้ใช้งาน</div>
-            <div style="font-weight:bold; font-size:1.05rem;" id="currentUserName">กำลังเชื่อมต่อ...</div>
-            <div class="stat-label">☁️ ข้อมูลนี้แชร์กับเพื่อนในฐานข้อมูลออนไลน์</div>
+
+            <div
+                style="
+                    font-weight:bold;
+                    font-size:1.05rem;
+                "
+                id="currentUserName"
+            >
+                กำลังเชื่อมต่อ...
+            </div>
+
+            <div class="stat-label">
+                ☁️ ข้อมูลนี้แชร์กับเพื่อนในฐานข้อมูลออนไลน์
+            </div>
         </div>
-        <button type="button" class="btn-clear" onclick="changeUserName()">✏️ เปลี่ยนชื่อ</button>
+
+        <button
+            type="button"
+            class="btn-clear"
+            onclick="changeUserName()"
+        >
+            ✏️ เปลี่ยนชื่อ
+        </button>
     </div>
 
-    <!-- Summary Overview -->
+    <!-- SUMMARY -->
     <div class="summary-grid">
+
         <div class="card">
-            <div class="stat-label">พอร์ตรวม (เงินฝาก + มูลค่าหุ้น)</div>
-            <div class="stat-value" id="totalAsset" style="color: var(--primary);">0 ฿</div>
-            <div class="progress-container">
-                <div class="progress-bar" id="progressBar"></div>
+            <div class="stat-label">
+                พอร์ตรวม (เงินฝาก + มูลค่าหุ้น)
             </div>
-            <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-muted); margin-top:5px;">
+
+            <div
+                class="stat-value"
+                id="totalAsset"
+                style="color:var(--primary);"
+            >
+                0 ฿
+            </div>
+
+            <div class="progress-container">
+                <div
+                    class="progress-bar"
+                    id="progressBar"
+                ></div>
+            </div>
+
+            <div
+                style="
+                    display:flex;
+                    justify-content:space-between;
+                    font-size:0.75rem;
+                    color:var(--text-muted);
+                    margin-top:5px;
+                "
+            >
                 <span id="percentText">0.0%</span>
                 <span>เป้าหมาย 100,000 ฿</span>
             </div>
         </div>
 
         <div class="card">
-            <div class="stat-label">เงินสดพักไว้ (Dime! Save)</div>
-            <div class="stat-value" id="totalCash" style="color: var(--secondary);">0 ฿</div>
-            <div class="stat-label" style="margin-top:5px;" id="cashPercentText">สัดส่วน: 0%</div>
+            <div class="stat-label">
+                เงินสดพักไว้ (Dime! Save)
+            </div>
+
+            <div
+                class="stat-value"
+                id="totalCash"
+                style="color:var(--secondary);"
+            >
+                0 ฿
+            </div>
+
+            <div
+                class="stat-label"
+                style="margin-top:5px;"
+                id="cashPercentText"
+            >
+                สัดส่วน: 0%
+            </div>
         </div>
 
         <div class="card">
-            <div class="stat-label">เงินอยู่ในหุ้น / กองทุน</div>
-            <div class="stat-value" id="totalInvested" style="color: var(--purple);">0 ฿</div>
-            <div class="stat-label" style="margin-top:5px;" id="investPercentText">สัดส่วน: 0%</div>
+            <div class="stat-label">
+                เงินอยู่ในหุ้น / กองทุน
+            </div>
+
+            <div
+                class="stat-value"
+                id="totalInvested"
+                style="color:var(--purple);"
+            >
+                0 ฿
+            </div>
+
+            <div
+                class="stat-label"
+                style="margin-top:5px;"
+                id="investPercentText"
+            >
+                สัดส่วน: 0%
+            </div>
         </div>
 
         <div class="card">
-            <div class="stat-label">กำไรสะสมที่ขายได้ (Realized Profit)</div>
-            <div class="stat-value" id="totalProfit" style="color: var(--accent);">0 ฿</div>
-            <div class="stat-label" style="margin-top:5px;">หมุนเวียนพร้อมลงทุนต่อ 🔄</div>
+            <div class="stat-label">
+                กำไรสะสมที่ขายได้ (Realized Profit)
+            </div>
+
+            <div
+                class="stat-value"
+                id="totalProfit"
+                style="color:var(--accent);"
+            >
+                0 ฿
+            </div>
+
+            <div
+                class="stat-label"
+                style="margin-top:5px;"
+            >
+                หมุนเวียนพร้อมลงทุนต่อ 🔄
+            </div>
         </div>
+
     </div>
 
-    <!-- Record Entry Form -->
-    <div class="card" style="margin-bottom: 20px;">
+    <!-- ADD FORM -->
+    <div
+        class="card"
+        style="margin-bottom:20px;"
+    >
         <div class="card-title">
-            <span>➕ บันทึกการออม / ซื้อ-ขายหุ้น</span>
-            <span style="font-size: 0.75rem; color: var(--text-muted);" id="todayDateStr"></span>
+            <span>
+                ➕ บันทึกการออม / ซื้อ-ขายหุ้น
+            </span>
+
+            <span
+                style="
+                    font-size:0.75rem;
+                    color:var(--text-muted);
+                "
+                id="todayDateStr"
+            ></span>
         </div>
-        <form id="logForm" onsubmit="addRecord(event)">
+
+        <form
+            id="logForm"
+            onsubmit="addRecord(event)"
+        >
+
             <div class="form-grid">
+
                 <div class="input-group">
                     <label>วันที่บันทึก:</label>
-                    <input type="date" id="entryDate" required>
+
+                    <input
+                        type="date"
+                        id="entryDate"
+                        required
+                    >
                 </div>
+
                 <div class="input-group">
                     <label>ประเภทรายการ:</label>
-                    <select id="entryCategory" onchange="toggleFormFields()">
-                        <option value="Savings">💰 ฝากเงินออมสด / พักไว้</option>
-                        <option value="Buy">📈 ซื้อหุ้น / กองทุน (Buy)</option>
-                        <option value="Sell">📉 ขายหุ้น / กองทุน (Sell)</option>
+
+                    <select
+                        id="entryCategory"
+                        onchange="toggleFormFields()"
+                    >
+                        <option value="Savings">
+                            💰 ฝากเงินออมสด / พักไว้
+                        </option>
+
+                        <option value="Buy">
+                            📈 ซื้อหุ้น / กองทุน (Buy)
+                        </option>
+
+                        <option value="Sell">
+                            📉 ขายหุ้น / กองทุน (Sell)
+                        </option>
                     </select>
                 </div>
+
                 <div class="input-group">
                     <label>แหล่งที่มาเงินทุน:</label>
+
                     <select id="entrySource">
-                        <option value="Grab">Grab</option>
-                        <option value="งานเสริม / ขายของ">งานเสริม / ขายของ</option>
-                        <option value="อื่นๆ">อื่นๆ</option>
+                        <option value="Grab">
+                            Grab
+                        </option>
+
+                        <option value="งานเสริม / ขายของ">
+                            งานเสริม / ขายของ
+                        </option>
+
+                        <option value="อื่นๆ">
+                            อื่นๆ
+                        </option>
                     </select>
                 </div>
 
-                <!-- Buy/Sell specific amount field -->
-                <div class="input-group" id="amountGroup">
-                    <label id="amountLabel">จำนวนเงิน (บาท):</label>
-                    <input type="number" id="entryAmount" placeholder="กรอกยอดเงินจริง" min="0" step="any">
+                <div
+                    class="input-group"
+                    id="amountGroup"
+                >
+                    <label id="amountLabel">
+                        จำนวนเงินที่ฝากเพิ่ม (บาท):
+                    </label>
+
+                    <input
+                        type="number"
+                        id="entryAmount"
+                        placeholder="กรอกยอดเงินจริง"
+                        min="0"
+                        step="any"
+                    >
                 </div>
 
-                <!-- Ticker field -->
-                <div class="input-group invest-field" id="tickerGroup">
-                    <label>ชื่อหุ้น / กองทุน:</label>
-                    <input type="text" id="entryTicker" placeholder="เช่น AAPL, NVDA, S&P500">
+                <div
+                    class="input-group invest-field"
+                    id="tickerGroup"
+                >
+                    <label>
+                        ชื่อหุ้น / กองทุน:
+                    </label>
+
+                    <input
+                        type="text"
+                        id="entryTicker"
+                        placeholder="เช่น AAPL, NVDA, S&P500"
+                    >
                 </div>
 
-                <!-- Profit field for Sell -->
-                <div class="input-group invest-field" id="profitGroup">
-                    <label>กำไร/ขาดทุน สุทธิจากการขาย (บาท):</label>
-                    <input type="number" id="entryProfit" placeholder="กำไรใส่ + / ขาดทุนใส่ -" step="any">
+                <div
+                    class="input-group invest-field"
+                    id="profitGroup"
+                >
+                    <label>
+                        กำไร/ขาดทุน สุทธิจากการขาย (บาท):
+                    </label>
+
+                    <input
+                        type="number"
+                        id="entryProfit"
+                        placeholder="กำไรใส่ + / ขาดทุนใส่ -"
+                        step="any"
+                    >
                 </div>
 
                 <div class="input-group">
-                    <label>บันทึกเพิ่มเติม (ถ้ามี):</label>
-                    <input type="text" id="entryNote" placeholder="เช่น ขายเอากำไรหมุนไปซื้อตัวอื่นต่อ">
+                    <label>
+                        บันทึกเพิ่มเติม (ถ้ามี):
+                    </label>
+
+                    <input
+                        type="text"
+                        id="entryNote"
+                        placeholder="เช่น ขายเอากำไรหมุนไปซื้อตัวอื่นต่อ"
+                    >
                 </div>
+
             </div>
-            <button type="submit" class="btn">💾 บันทึกรายการ</button>
+
+            <button
+                type="submit"
+                class="btn"
+            >
+                💾 บันทึกรายการ
+            </button>
+
         </form>
     </div>
 
-    <!-- History Logs -->
-    <div class="card">
+    <!-- EDIT FORM -->
+    <div
+        class="card edit-box"
+        id="editBox"
+    >
         <div class="card-title">
-            <span>📜 ประวัติการออม ซื้อ-ขาย & หมุนเวียนเงิน</span>
-            <button class="btn-clear" onclick="clearAllData()">🗑️ ล้างข้อมูลทั้งหมด</button>
+            <span class="edit-title">
+                ✏️ แก้ไขรายการ
+            </span>
         </div>
+
+        <form
+            id="editForm"
+            onsubmit="saveEdit(event)"
+        >
+
+            <input
+                type="hidden"
+                id="editKey"
+            >
+
+            <div class="form-grid">
+
+                <div class="input-group">
+                    <label>วันที่:</label>
+
+                    <input
+                        type="date"
+                        id="editDate"
+                        required
+                    >
+                </div>
+
+                <div class="input-group">
+                    <label>ประเภท:</label>
+
+                    <select
+                        id="editCategory"
+                        onchange="toggleEditFields()"
+                    >
+                        <option value="Savings">
+                            💰 ฝากเงินออมสด / พักไว้
+                        </option>
+
+                        <option value="Buy">
+                            📈 ซื้อหุ้น / กองทุน (Buy)
+                        </option>
+
+                        <option value="Sell">
+                            📉 ขายหุ้น / กองทุน (Sell)
+                        </option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>แหล่งเงิน:</label>
+
+                    <select id="editSource">
+                        <option value="Grab">
+                            Grab
+                        </option>
+
+                        <option value="งานเสริม / ขายของ">
+                            งานเสริม / ขายของ
+                        </option>
+
+                        <option value="อื่นๆ">
+                            อื่นๆ
+                        </option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>จำนวนเงิน:</label>
+
+                    <input
+                        type="number"
+                        id="editAmount"
+                        min="0"
+                        step="any"
+                        required
+                    >
+                </div>
+
+                <div
+                    class="input-group invest-field"
+                    id="editTickerGroup"
+                >
+                    <label>
+                        หุ้น / กองทุน:
+                    </label>
+
+                    <input
+                        type="text"
+                        id="editTicker"
+                    >
+                </div>
+
+                <div
+                    class="input-group invest-field"
+                    id="editProfitGroup"
+                >
+                    <label>
+                        กำไร/ขาดทุน:
+                    </label>
+
+                    <input
+                        type="number"
+                        id="editProfit"
+                        step="any"
+                    >
+                </div>
+
+                <div class="input-group">
+                    <label>รายละเอียด / โน้ต:</label>
+
+                    <input
+                        type="text"
+                        id="editNote"
+                    >
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+
+                <button
+                    type="submit"
+                    class="btn"
+                >
+                    💾 บันทึกการแก้ไข
+                </button>
+
+                <button
+                    type="button"
+                    class="btn-cancel"
+                    onclick="cancelEdit()"
+                >
+                    ยกเลิก
+                </button>
+
+            </div>
+
+        </form>
+    </div>
+
+    <!-- HISTORY -->
+    <div class="card">
+
+        <div class="card-title">
+
+            <span>
+                📜 ประวัติการออม ซื้อ-ขาย & หมุนเวียนเงิน
+            </span>
+
+            <button
+                class="btn-clear"
+                onclick="clearAllData()"
+            >
+                🗑️ ล้างข้อมูลทั้งหมด
+            </button>
+
+        </div>
+
         <div class="history-table-container">
+
             <table>
+
                 <thead>
+
                     <tr>
                         <th>วันที่</th>
                         <th>ผู้บันทึก</th>
@@ -369,20 +854,35 @@
                         <th>รายละเอียด / โน้ต</th>
                         <th>จัดการ</th>
                     </tr>
+
                 </thead>
-                <tbody id="historyBody">
-                    <!-- Dynamic Data -->
-                </tbody>
+
+                <tbody id="historyBody"></tbody>
+
             </table>
-            <div id="emptyMessage" class="empty-msg">ยังไม่มีประวัติการบันทึก เริ่มบันทึกวันแรกได้เลย! 🚀</div>
+
+            <div
+                id="emptyMessage"
+                class="empty-msg"
+            >
+                ยังไม่มีประวัติการบันทึก
+                เริ่มบันทึกวันแรกได้เลย! 🚀
+            </div>
+
         </div>
     </div>
 
+    <!-- FIREBASE -->
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
     <script>
+
+        /* =========================
+           FIREBASE CONFIG
+        ========================= */
+
         const firebaseConfig = {
             apiKey: "AIzaSyBcviRS1zRri103yo2rnS-iGmsjIwUAY9g",
             authDomain: "k-savings.firebaseapp.com",
@@ -395,305 +895,1173 @@
         };
 
         firebase.initializeApp(firebaseConfig);
+
         const auth = firebase.auth();
         const db = firebase.database();
-        const logsRef = db.ref('shared/logs');
-        const usersRef = db.ref('users');
+
+        const logsRef = db.ref("shared/logs");
+        const usersRef = db.ref("users");
+
         let currentUser = null;
-        let currentUserName = '';
+        let currentUserName = "";
         let allLogs = [];
 
+
+        /* =========================
+           SECURITY ESCAPE
+        ========================= */
+
         function esc(value) {
-            return String(value ?? '')
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#039;');
+
+            return String(value ?? "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
         }
 
-        function getLogs() {
-            return allLogs;
-        }
+
+        /* =========================
+           FORM
+        ========================= */
 
         function toggleFormFields() {
-            const cat = document.getElementById('entryCategory').value;
-            const tickerGroup = document.getElementById('tickerGroup');
-            const profitGroup = document.getElementById('profitGroup');
-            const amountLabel = document.getElementById('amountLabel');
 
-            if (cat === 'Savings') {
-                tickerGroup.style.display = 'none';
-                profitGroup.style.display = 'none';
-                amountLabel.innerText = 'จำนวนเงินที่ฝากเพิ่ม (บาท):';
-            } else if (cat === 'Buy') {
-                tickerGroup.style.display = 'flex';
-                profitGroup.style.display = 'none';
-                amountLabel.innerText = 'จำนวนเงินที่ใช้ซื้อหุ้น (บาท):';
-            } else if (cat === 'Sell') {
-                tickerGroup.style.display = 'flex';
-                profitGroup.style.display = 'flex';
-                amountLabel.innerText = 'ยอดเงินที่ได้จากการขายคืนทั้งหมด (บาท):';
+            const cat =
+                document.getElementById("entryCategory").value;
+
+            const tickerGroup =
+                document.getElementById("tickerGroup");
+
+            const profitGroup =
+                document.getElementById("profitGroup");
+
+            const amountLabel =
+                document.getElementById("amountLabel");
+
+
+            if (cat === "Savings") {
+
+                tickerGroup.style.display = "none";
+                profitGroup.style.display = "none";
+
+                amountLabel.innerText =
+                    "จำนวนเงินที่ฝากเพิ่ม (บาท):";
+
             }
+
+            else if (cat === "Buy") {
+
+                tickerGroup.style.display = "flex";
+                profitGroup.style.display = "none";
+
+                amountLabel.innerText =
+                    "จำนวนเงินที่ใช้ซื้อหุ้น (บาท):";
+
+            }
+
+            else if (cat === "Sell") {
+
+                tickerGroup.style.display = "flex";
+                profitGroup.style.display = "flex";
+
+                amountLabel.innerText =
+                    "ยอดเงินที่ได้จากการขายคืนทั้งหมด (บาท):";
+
+            }
+
         }
+
+
+        function toggleEditFields() {
+
+            const cat =
+                document.getElementById("editCategory").value;
+
+            const tickerGroup =
+                document.getElementById("editTickerGroup");
+
+            const profitGroup =
+                document.getElementById("editProfitGroup");
+
+
+            if (cat === "Savings") {
+
+                tickerGroup.style.display = "none";
+                profitGroup.style.display = "none";
+
+            }
+
+            else if (cat === "Buy") {
+
+                tickerGroup.style.display = "flex";
+                profitGroup.style.display = "none";
+
+            }
+
+            else {
+
+                tickerGroup.style.display = "flex";
+                profitGroup.style.display = "flex";
+
+            }
+
+        }
+
 
         function setToday() {
+
             const now = new Date();
-            document.getElementById('entryDate').valueAsDate = now;
-            document.getElementById('todayDateStr').innerText = now.toLocaleDateString('th-TH', {
-                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-            });
+
+            document
+                .getElementById("entryDate")
+                .valueAsDate = now;
+
+            document
+                .getElementById("todayDateStr")
+                .innerText =
+                now.toLocaleDateString(
+                    "th-TH",
+                    {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric"
+                    }
+                );
+
         }
+
+
+        /* =========================
+           USER
+        ========================= */
 
         async function ensureUserProfile(user) {
-            const snap = await usersRef.child(user.uid).once('value');
+
+            const snap =
+                await usersRef
+                    .child(user.uid)
+                    .once("value");
+
             const existing = snap.val();
 
+
             if (existing && existing.name) {
+
                 currentUserName = existing.name;
-            } else {
-                const entered = prompt('ตั้งชื่อที่จะแสดงให้เพื่อนเห็น:', 'สมาชิก');
-                currentUserName = (entered || '').trim() || 'สมาชิก';
-                await usersRef.child(user.uid).set({
-                    name: currentUserName,
-                    createdAt: firebase.database.ServerValue.TIMESTAMP
-                });
+
             }
 
-            document.getElementById('currentUserName').innerText = currentUserName;
+            else {
+
+                const entered =
+                    prompt(
+                        "ตั้งชื่อที่จะแสดงให้เพื่อนเห็น:",
+                        "สมาชิก"
+                    );
+
+                currentUserName =
+                    (entered || "").trim() || "สมาชิก";
+
+
+                await usersRef
+                    .child(user.uid)
+                    .set({
+                        name: currentUserName,
+                        createdAt:
+                            firebase.database.ServerValue.TIMESTAMP
+                    });
+
+            }
+
+
+            document
+                .getElementById("currentUserName")
+                .innerText = currentUserName;
+
         }
+
 
         async function changeUserName() {
+
             if (!currentUser) return;
-            const entered = prompt('เปลี่ยนชื่อที่จะแสดงให้เพื่อนเห็น:', currentUserName);
-            const name = (entered || '').trim();
-            if (!name || name === currentUserName) return;
+
+
+            const entered =
+                prompt(
+                    "เปลี่ยนชื่อที่จะแสดงให้เพื่อนเห็น:",
+                    currentUserName
+                );
+
+
+            const name =
+                (entered || "").trim();
+
+
+            if (!name || name === currentUserName) {
+                return;
+            }
+
 
             currentUserName = name;
-            document.getElementById('currentUserName').innerText = currentUserName;
-            await usersRef.child(currentUser.uid).update({ name: currentUserName });
 
-            // Update the displayed name on this user's existing records.
-            const snap = await logsRef.orderByChild('userId').equalTo(currentUser.uid).once('value');
+
+            document
+                .getElementById("currentUserName")
+                .innerText = currentUserName;
+
+
+            await usersRef
+                .child(currentUser.uid)
+                .update({
+                    name: currentUserName
+                });
+
+
+            const snap =
+                await logsRef
+                    .orderByChild("userId")
+                    .equalTo(currentUser.uid)
+                    .once("value");
+
+
             const updates = {};
+
+
             snap.forEach(child => {
-                updates[child.key + '/userName'] = currentUserName;
+
+                updates[
+                    child.key + "/userName"
+                ] = currentUserName;
+
             });
-            if (Object.keys(updates).length) await logsRef.update(updates);
-        }
 
-        async function migrateOldLocalData() {
-            const marker = '100k_firebase_migrated_v1';
-            if (localStorage.getItem(marker) || !currentUser) return;
 
-            const old = localStorage.getItem('100k_savings_invest_v3');
-            if (!old) {
-                localStorage.setItem(marker, '1');
-                return;
+            if (Object.keys(updates).length) {
+
+                await logsRef.update(updates);
+
             }
 
-            try {
-                const oldLogs = JSON.parse(old);
-                if (Array.isArray(oldLogs) && oldLogs.length) {
-                    const updates = {};
-                    oldLogs.forEach((item, index) => {
-                        const key = logsRef.push().key;
-                        updates[key] = {
-                            ...item,
-                            userId: currentUser.uid,
-                            userName: currentUserName,
-                            createdAt: Number(item.id) || Date.now() + index
-                        };
-                    });
-                    await logsRef.update(updates);
-                }
-                localStorage.setItem(marker, '1');
-            } catch (error) {
-                console.error('Migration error:', error);
-            }
         }
+
+
+        /* =========================
+           ADD RECORD
+        ========================= */
 
         async function addRecord(e) {
+
             e.preventDefault();
+
+
             if (!currentUser) {
-                alert('กำลังเชื่อมต่อ Firebase กรุณารอสักครู่แล้วลองใหม่');
+
+                alert(
+                    "กำลังเชื่อมต่อ Firebase กรุณารอสักครู่"
+                );
+
                 return;
+
             }
 
-            const date = document.getElementById('entryDate').value;
-            const category = document.getElementById('entryCategory').value;
-            const source = document.getElementById('entrySource').value;
-            const amount = parseFloat(document.getElementById('entryAmount').value) || 0;
-            const profit = parseFloat(document.getElementById('entryProfit').value) || 0;
-            const ticker = document.getElementById('entryTicker').value.trim().toUpperCase();
-            const note = document.getElementById('entryNote').value.trim();
 
-            if (amount <= 0 && category !== 'Sell') return;
+            const date =
+                document.getElementById("entryDate").value;
+
+            const category =
+                document.getElementById("entryCategory").value;
+
+            const source =
+                document.getElementById("entrySource").value;
+
+            const amount =
+                parseFloat(
+                    document.getElementById("entryAmount").value
+                ) || 0;
+
+            const profit =
+                parseFloat(
+                    document.getElementById("entryProfit").value
+                ) || 0;
+
+            const ticker =
+                document
+                    .getElementById("entryTicker")
+                    .value
+                    .trim()
+                    .toUpperCase();
+
+            const note =
+                document
+                    .getElementById("entryNote")
+                    .value
+                    .trim();
+
+
+            if (amount <= 0) {
+
+                alert("กรุณาใส่จำนวนเงิน");
+
+                return;
+
+            }
+
 
             await logsRef.push({
+
                 id: Date.now(),
+
                 userId: currentUser.uid,
+
                 userName: currentUserName,
-                date,
-                category,
-                source,
-                amount,
-                profit,
-                ticker,
-                note,
-                createdAt: firebase.database.ServerValue.TIMESTAMP
+
+                date: date,
+
+                category: category,
+
+                source: source,
+
+                amount: amount,
+
+                profit: profit,
+
+                ticker: ticker,
+
+                note: note,
+
+                createdAt:
+                    firebase.database.ServerValue.TIMESTAMP
+
             });
 
-            document.getElementById('entryAmount').value = '';
-            document.getElementById('entryProfit').value = '';
-            document.getElementById('entryTicker').value = '';
-            document.getElementById('entryNote').value = '';
+
+            document
+                .getElementById("entryAmount")
+                .value = "";
+
+            document
+                .getElementById("entryProfit")
+                .value = "";
+
+            document
+                .getElementById("entryTicker")
+                .value = "";
+
+            document
+                .getElementById("entryNote")
+                .value = "";
+
             setToday();
+
         }
 
-        async function deleteRecord(id) {
-            if (!currentUser) return;
-            const item = allLogs.find(x => String(x.id) === String(id));
-            if (!item || item.userId !== currentUser.uid) {
-                alert('คุณลบได้เฉพาะรายการที่คุณเป็นคนบันทึก');
+
+        /* =========================
+           EDIT RECORD
+        ========================= */
+
+        function editRecord(key) {
+
+            const item =
+                allLogs.find(
+                    x => String(x.key) === String(key)
+                );
+
+
+            if (!item) {
+
+                alert("ไม่พบรายการนี้");
+
                 return;
+
             }
-            if (confirm('คุณต้องการลบรายการนี้ใช่หรือไม่?')) {
-                await logsRef.child(item.key).remove();
-            }
+
+
+            document
+                .getElementById("editKey")
+                .value = item.key;
+
+            document
+                .getElementById("editDate")
+                .value = item.date || "";
+
+            document
+                .getElementById("editCategory")
+                .value = item.category || "Savings";
+
+            document
+                .getElementById("editSource")
+                .value = item.source || "Grab";
+
+            document
+                .getElementById("editAmount")
+                .value = item.amount || 0;
+
+            document
+                .getElementById("editTicker")
+                .value = item.ticker || "";
+
+            document
+                .getElementById("editProfit")
+                .value = item.profit || 0;
+
+            document
+                .getElementById("editNote")
+                .value = item.note || "";
+
+
+            toggleEditFields();
+
+
+            document
+                .getElementById("editBox")
+                .classList.add("active");
+
+
+            document
+                .getElementById("editBox")
+                .scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
         }
+
+
+        async function saveEdit(e) {
+
+            e.preventDefault();
+
+
+            const key =
+                document
+                    .getElementById("editKey")
+                    .value;
+
+
+            if (!key) return;
+
+
+            const item =
+                allLogs.find(
+                    x => String(x.key) === String(key)
+                );
+
+
+            if (!item) {
+
+                alert("ไม่พบรายการ");
+
+                return;
+
+            }
+
+
+            const date =
+                document
+                    .getElementById("editDate")
+                    .value;
+
+            const category =
+                document
+                    .getElementById("editCategory")
+                    .value;
+
+            const source =
+                document
+                    .getElementById("editSource")
+                    .value;
+
+            const amount =
+                parseFloat(
+                    document
+                        .getElementById("editAmount")
+                        .value
+                ) || 0;
+
+            const ticker =
+                document
+                    .getElementById("editTicker")
+                    .value
+                    .trim()
+                    .toUpperCase();
+
+            const profit =
+                parseFloat(
+                    document
+                        .getElementById("editProfit")
+                        .value
+                ) || 0;
+
+            const note =
+                document
+                    .getElementById("editNote")
+                    .value
+                    .trim();
+
+
+            if (amount <= 0) {
+
+                alert("จำนวนเงินต้องมากกว่า 0");
+
+                return;
+
+            }
+
+
+            await logsRef
+                .child(key)
+                .update({
+
+                    date: date,
+
+                    category: category,
+
+                    source: source,
+
+                    amount: amount,
+
+                    ticker: ticker,
+
+                    profit: profit,
+
+                    note: note,
+
+                    updatedAt:
+                        firebase.database.ServerValue.TIMESTAMP
+
+                });
+
+
+            alert("แก้ไขรายการเรียบร้อยแล้ว");
+
+            cancelEdit();
+
+        }
+
+
+        function cancelEdit() {
+
+            document
+                .getElementById("editBox")
+                .classList.remove("active");
+
+            document
+                .getElementById("editForm")
+                .reset();
+
+        }
+
+
+        /* =========================
+           DELETE
+        ========================= */
+
+        async function deleteRecord(key) {
+
+            const item =
+                allLogs.find(
+                    x => String(x.key) === String(key)
+                );
+
+
+            if (!item) {
+
+                alert("ไม่พบรายการนี้");
+
+                return;
+
+            }
+
+
+            const ok =
+                confirm(
+                    "ต้องการลบรายการนี้ใช่หรือไม่?\n\n" +
+                    "ผู้บันทึก: " +
+                    (item.userName || "สมาชิก") +
+                    "\n" +
+                    "จำนวน: " +
+                    Number(item.amount || 0)
+                        .toLocaleString("th-TH") +
+                    " ฿"
+                );
+
+
+            if (!ok) return;
+
+
+            try {
+
+                await logsRef
+                    .child(item.key)
+                    .remove();
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Delete error:",
+                    error
+                );
+
+                alert(
+                    "ลบไม่ได้: " +
+                    error.message
+                );
+
+            }
+
+        }
+
+
+        /* =========================
+           CLEAR ALL
+        ========================= */
 
         async function clearAllData() {
-            if (!currentUser) return;
-            const mine = allLogs.filter(item => item.userId === currentUser.uid);
-            if (!mine.length) {
-                alert('ยังไม่มีรายการของคุณให้ลบ');
-                return;
-            }
-            if (!confirm('ต้องการลบรายการทั้งหมดที่คุณบันทึกไว้ใช่หรือไม่? ข้อมูลของเพื่อนจะไม่ถูกลบ')) return;
 
-            const updates = {};
-            mine.forEach(item => { updates[item.key] = null; });
-            await logsRef.update(updates);
+            if (!allLogs.length) {
+
+                alert("ยังไม่มีข้อมูล");
+
+                return;
+
+            }
+
+
+            const ok =
+                confirm(
+                    "⚠️ ต้องการลบข้อมูลทั้งหมดหรือไม่?\n\n" +
+                    "ข้อมูลของคุณและเพื่อนจะถูกลบทั้งหมด"
+                );
+
+
+            if (!ok) return;
+
+
+            try {
+
+                await logsRef.remove();
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Clear error:",
+                    error
+                );
+
+                alert(
+                    "ล้างข้อมูลไม่ได้: " +
+                    error.message
+                );
+
+            }
+
         }
 
+
+        /* =========================
+           UI
+        ========================= */
+
         function updateUI() {
-            const logs = [...allLogs].sort((a, b) => (Number(b.createdAt) || Number(b.id) || 0) - (Number(a.createdAt) || Number(a.id) || 0));
-            const tbody = document.getElementById('historyBody');
-            const emptyMsg = document.getElementById('emptyMessage');
-            tbody.innerHTML = '';
+
+            const logs =
+                [...allLogs].sort(
+                    (a, b) =>
+                        (
+                            Number(b.createdAt) ||
+                            Number(b.id) ||
+                            0
+                        ) -
+                        (
+                            Number(a.createdAt) ||
+                            Number(a.id) ||
+                            0
+                        )
+                );
+
+
+            const tbody =
+                document.getElementById(
+                    "historyBody"
+                );
+
+            const emptyMsg =
+                document.getElementById(
+                    "emptyMessage"
+                );
+
+
+            tbody.innerHTML = "";
+
 
             let totalCash = 0;
             let totalInvested = 0;
             let totalProfit = 0;
-            const reversedLogs = [...logs].reverse();
+
+
+            const reversedLogs =
+                [...logs].reverse();
+
 
             reversedLogs.forEach(item => {
-                if (item.category === 'Savings') totalCash += Number(item.amount) || 0;
-                else if (item.category === 'Buy') {
-                    totalCash -= Number(item.amount) || 0;
-                    totalInvested += Number(item.amount) || 0;
-                } else if (item.category === 'Sell') {
-                    const amount = Number(item.amount) || 0;
-                    const profit = Number(item.profit) || 0;
-                    totalInvested -= amount - profit;
-                    totalCash += amount;
-                    totalProfit += profit;
+
+                if (item.category === "Savings") {
+
+                    totalCash +=
+                        Number(item.amount) || 0;
+
                 }
+
+                else if (item.category === "Buy") {
+
+                    totalCash -=
+                        Number(item.amount) || 0;
+
+                    totalInvested +=
+                        Number(item.amount) || 0;
+
+                }
+
+                else if (item.category === "Sell") {
+
+                    const amount =
+                        Number(item.amount) || 0;
+
+                    const profit =
+                        Number(item.profit) || 0;
+
+
+                    totalInvested -=
+                        amount - profit;
+
+                    totalCash += amount;
+
+                    totalProfit += profit;
+
+                }
+
             });
 
-            if (totalInvested < 0) totalInvested = 0;
-            if (totalCash < 0) totalCash = 0;
+
+            if (totalInvested < 0) {
+                totalInvested = 0;
+            }
+
+            if (totalCash < 0) {
+                totalCash = 0;
+            }
+
 
             if (!logs.length) {
-                emptyMsg.style.display = 'block';
-            } else {
-                emptyMsg.style.display = 'none';
-                logs.forEach(item => {
-                    const tr = document.createElement('tr');
-                    let badgeHtml = '';
-                    let tagClass = 'tag-dime';
-                    let impactText = '';
-                    const detailText = item.note || '-';
-                    const amount = Number(item.amount) || 0;
-                    const profit = Number(item.profit) || 0;
 
-                    if (item.category === 'Savings') {
-                        badgeHtml = '<span class="type-badge badge-savings">💰 เงินฝาก</span>';
-                        tagClass = (item.source || '').includes('Grab') ? 'tag-grab' : 'tag-extra';
-                        impactText = '<span style="color:var(--primary);">+เงินสด ' + amount.toLocaleString('th-TH') + ' ฿</span>';
-                    } else if (item.category === 'Buy') {
-                        badgeHtml = '<span class="type-badge badge-buy">📈 ซื้อหุ้น</span>';
-                        impactText = '<span style="color:var(--purple);">-เงินสด +หุ้น ' + amount.toLocaleString('th-TH') + ' ฿</span>';
-                    } else if (item.category === 'Sell') {
-                        badgeHtml = '<span class="type-badge badge-sell">📉 ขายหุ้น</span>';
-                        const profitColor = profit >= 0 ? 'var(--accent)' : 'var(--danger)';
-                        const profitSign = profit >= 0 ? '+' : '';
-                        impactText = '<span style="color:var(--secondary);">+เข้าเงินสด ' + amount.toLocaleString('th-TH') + ' ฿</span><br><small style="color:' + profitColor + ';">' + profitSign + profit.toLocaleString('th-TH') + ' ฿ กำไรสุทธิ</small>';
+                emptyMsg.style.display = "block";
+
+            }
+
+            else {
+
+                emptyMsg.style.display = "none";
+
+
+                logs.forEach(item => {
+
+                    const tr =
+                        document.createElement("tr");
+
+
+                    let badgeHtml = "";
+                    let tagClass = "tag-dime";
+                    let impactText = "";
+
+
+                    const detailText =
+                        item.note || "-";
+
+                    const amount =
+                        Number(item.amount) || 0;
+
+                    const profit =
+                        Number(item.profit) || 0;
+
+
+                    if (item.category === "Savings") {
+
+                        badgeHtml =
+                            '<span class="type-badge badge-savings">' +
+                            '💰 เงินฝาก' +
+                            '</span>';
+
+                        tagClass =
+                            (item.source || "")
+                                .includes("Grab")
+                                ? "tag-grab"
+                                : "tag-extra";
+
+
+                        impactText =
+                            '<span style="color:var(--primary);">' +
+                            "+เงินสด " +
+                            amount.toLocaleString("th-TH") +
+                            " ฿" +
+                            "</span>";
+
                     }
 
-                    const assetTitle = item.ticker || item.source || '-';
+                    else if (item.category === "Buy") {
+
+                        badgeHtml =
+                            '<span class="type-badge badge-buy">' +
+                            "📈 ซื้อหุ้น" +
+                            "</span>";
+
+
+                        impactText =
+                            '<span style="color:var(--purple);">' +
+                            "-เงินสด +หุ้น " +
+                            amount.toLocaleString("th-TH") +
+                            " ฿" +
+                            "</span>";
+
+                    }
+
+                    else if (item.category === "Sell") {
+
+                        badgeHtml =
+                            '<span class="type-badge badge-sell">' +
+                            "📉 ขายหุ้น" +
+                            "</span>";
+
+
+                        const profitColor =
+                            profit >= 0
+                                ? "var(--accent)"
+                                : "var(--danger)";
+
+
+                        const profitSign =
+                            profit >= 0
+                                ? "+"
+                                : "";
+
+
+                        impactText =
+                            '<span style="color:var(--secondary);">' +
+                            "+เข้าเงินสด " +
+                            amount.toLocaleString("th-TH") +
+                            " ฿" +
+                            "</span>" +
+
+                            "<br>" +
+
+                            '<small style="color:' +
+                            profitColor +
+                            ';">' +
+
+                            profitSign +
+                            profit.toLocaleString("th-TH") +
+                            " ฿ กำไรสุทธิ" +
+
+                            "</small>";
+
+                    }
+
+
+                    const assetTitle =
+                        item.ticker ||
+                        item.source ||
+                        "-";
+
+
                     tr.innerHTML =
-                        '<td>' + esc(item.date || '-') + '</td>' +
-                        '<td><strong>' + esc(item.userName || 'สมาชิก') + '</strong></td>' +
-                        '<td>' + badgeHtml + '</td>' +
-                        '<td><span class="tag ' + tagClass + '">' + esc(assetTitle) + '</span></td>' +
-                        '<td><strong>' + amount.toLocaleString('th-TH') + ' ฿</strong></td>' +
-                        '<td>' + impactText + '</td>' +
-                        '<td style="color:var(--text-muted);font-size:0.8rem;">' + esc(detailText) + '</td>' +
-                        '<td>' + (currentUser && item.userId === currentUser.uid ? '<button class="delete-btn" onclick="deleteRecord(' + JSON.stringify(String(item.id)) + ')">❌</button>' : '<span style="color:var(--text-muted);font-size:0.75rem;">ของเพื่อน</span>') + '</td>';
+
+                        "<td>" +
+                        esc(item.date || "-") +
+                        "</td>" +
+
+                        "<td>" +
+                        "<strong>" +
+                        esc(
+                            item.userName ||
+                            "สมาชิก"
+                        ) +
+                        "</strong>" +
+                        "</td>" +
+
+                        "<td>" +
+                        badgeHtml +
+                        "</td>" +
+
+                        "<td>" +
+                        '<span class="tag ' +
+                        tagClass +
+                        '">' +
+                        esc(assetTitle) +
+                        "</span>" +
+                        "</td>" +
+
+                        "<td>" +
+                        "<strong>" +
+                        amount.toLocaleString("th-TH") +
+                        " ฿" +
+                        "</strong>" +
+                        "</td>" +
+
+                        "<td>" +
+                        impactText +
+                        "</td>" +
+
+                        '<td style="color:var(--text-muted);font-size:0.8rem;">' +
+                        esc(detailText) +
+                        "</td>" +
+
+                        "<td>" +
+
+                        '<button ' +
+                        'class="edit-btn" ' +
+                        'title="แก้ไขรายการ" ' +
+                        'onclick="editRecord(' +
+                        JSON.stringify(String(item.key)) +
+                        ')">' +
+                        "✏️" +
+                        "</button>" +
+
+                        '<button ' +
+                        'class="delete-btn" ' +
+                        'title="ลบรายการ" ' +
+                        'onclick="deleteRecord(' +
+                        JSON.stringify(String(item.key)) +
+                        ')">' +
+                        "❌" +
+                        "</button>" +
+
+                        "</td>";
+
+
                     tbody.appendChild(tr);
+
                 });
+
             }
 
-            const totalAsset = totalCash + totalInvested;
+
+            /* =========================
+               SUMMARY
+            ========================= */
+
+            const totalAsset =
+                totalCash +
+                totalInvested;
+
+
             const target = 100000;
-            const remaining = Math.max(0, target - totalAsset);
-            const percent = Math.min(100, (totalAsset / target) * 100);
 
-            document.getElementById('totalAsset').innerText = totalAsset.toLocaleString('th-TH') + ' ฿';
-            document.getElementById('totalCash').innerText = totalCash.toLocaleString('th-TH') + ' ฿';
-            document.getElementById('totalInvested').innerText = totalInvested.toLocaleString('th-TH') + ' ฿';
-            document.getElementById('totalProfit').innerText = (totalProfit >= 0 ? '+' : '') + totalProfit.toLocaleString('th-TH') + ' ฿';
-            document.getElementById('progressBar').style.width = percent + '%';
-            document.getElementById('percentText').innerText = percent.toFixed(1) + '%';
 
-            const cashPct = totalAsset > 0 ? ((totalCash / totalAsset) * 100).toFixed(0) : 0;
-            const investPct = totalAsset > 0 ? ((totalInvested / totalAsset) * 100).toFixed(0) : 0;
-            document.getElementById('cashPercentText').innerText = 'สัดส่วน: ' + cashPct + '%';
-            document.getElementById('investPercentText').innerText = 'สัดส่วน: ' + investPct + '%';
+            const percent =
+                Math.min(
+                    100,
+                    (totalAsset / target) * 100
+                );
+
+
+            document
+                .getElementById("totalAsset")
+                .innerText =
+                totalAsset.toLocaleString("th-TH") +
+                " ฿";
+
+
+            document
+                .getElementById("totalCash")
+                .innerText =
+                totalCash.toLocaleString("th-TH") +
+                " ฿";
+
+
+            document
+                .getElementById("totalInvested")
+                .innerText =
+                totalInvested.toLocaleString("th-TH") +
+                " ฿";
+
+
+            document
+                .getElementById("totalProfit")
+                .innerText =
+                (totalProfit >= 0 ? "+" : "") +
+                totalProfit.toLocaleString("th-TH") +
+                " ฿";
+
+
+            document
+                .getElementById("progressBar")
+                .style.width =
+                percent + "%";
+
+
+            document
+                .getElementById("percentText")
+                .innerText =
+                percent.toFixed(1) + "%";
+
+
+            const cashPct =
+                totalAsset > 0
+                    ? (
+                        (totalCash / totalAsset) *
+                        100
+                    ).toFixed(0)
+                    : 0;
+
+
+            const investPct =
+                totalAsset > 0
+                    ? (
+                        (totalInvested / totalAsset) *
+                        100
+                    ).toFixed(0)
+                    : 0;
+
+
+            document
+                .getElementById("cashPercentText")
+                .innerText =
+                "สัดส่วน: " +
+                cashPct +
+                "%";
+
+
+            document
+                .getElementById("investPercentText")
+                .innerText =
+                "สัดส่วน: " +
+                investPct +
+                "%";
+
         }
+
+
+        /* =========================
+           FIREBASE LISTENER
+        ========================= */
 
         function startSharedDataListener() {
-            logsRef.on('value', snapshot => {
-                const data = snapshot.val() || {};
-                allLogs = Object.entries(data).map(([key, value]) => ({ ...value, key }));
-                updateUI();
-            }, error => {
-                console.error('Database read error:', error);
-                document.getElementById('currentUserName').innerText = 'เชื่อมต่อฐานข้อมูลไม่สำเร็จ';
-            });
+
+            logsRef.on(
+                "value",
+
+                snapshot => {
+
+                    const data =
+                        snapshot.val() || {};
+
+
+                    allLogs =
+                        Object.entries(data)
+                            .map(
+                                ([key, value]) => ({
+                                    ...value,
+                                    key
+                                })
+                            );
+
+
+                    updateUI();
+
+                },
+
+                error => {
+
+                    console.error(
+                        "Database read error:",
+                        error
+                    );
+
+
+                    document
+                        .getElementById(
+                            "currentUserName"
+                        )
+                        .innerText =
+                        "เชื่อมต่อฐานข้อมูลไม่สำเร็จ";
+
+                }
+            );
+
         }
+
+
+        /* =========================
+           START
+        ========================= */
 
         async function boot() {
+
             toggleFormFields();
+
+            toggleEditFields();
+
             setToday();
+
             updateUI();
 
+
             try {
-                const result = await auth.signInAnonymously();
-                currentUser = result.user;
-                await ensureUserProfile(currentUser);
-                await migrateOldLocalData();
+
+                const result =
+                    await auth.signInAnonymously();
+
+
+                currentUser =
+                    result.user;
+
+
+                await ensureUserProfile(
+                    currentUser
+                );
+
+
                 startSharedDataListener();
-            } catch (error) {
-                console.error(error);
-                document.getElementById('currentUserName').innerText = 'เชื่อมต่อไม่ได้';
-                alert('เชื่อมต่อ Firebase ไม่สำเร็จ กรุณาตรวจสอบว่าเปิด Anonymous Authentication แล้ว');
+
             }
+
+            catch (error) {
+
+                console.error(
+                    "Firebase boot error:",
+                    error
+                );
+
+
+                document
+                    .getElementById(
+                        "currentUserName"
+                    )
+                    .innerText =
+                    "เชื่อมต่อไม่ได้";
+
+
+                alert(
+                    "เชื่อมต่อ Firebase ไม่สำเร็จ\n\n" +
+                    error.message
+                );
+
+            }
+
         }
 
+
         boot();
+
     </script>
+
 </body>
 </html>
