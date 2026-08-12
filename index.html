@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>💡ผมไม่ได้ทำความฝันให้สำเร็จในวันเดียว 🕰🦥</title>
 
     <style>
@@ -308,10 +309,12 @@
 
     <header>
         <h1>💡ผมไม่ได้ทำความฝันให้สำเร็จในวันเดียว 🕰🦥</h1>
+
         <p class="subtitle">
             💡แค่ผมเดินเข้าใกล้มันมากขึ้นในทุกวันก็พอ 🕰️🦥
         </p>
     </header>
+
 
     <!-- USER -->
     <div class="card"
@@ -320,7 +323,8 @@
         <div>
             <div class="stat-label">ผู้ใช้งาน</div>
 
-            <div style="font-weight:bold; font-size:1.05rem;"
+            <div
+                style="font-weight:bold; font-size:1.05rem;"
                 id="currentUserName">
                 กำลังเชื่อมต่อ...
             </div>
@@ -330,7 +334,8 @@
             </div>
         </div>
 
-        <button type="button"
+        <button
+            type="button"
             class="btn-clear"
             onclick="changeUserName()">
             ✏️ เปลี่ยนชื่อ
@@ -342,31 +347,38 @@
     <div class="summary-grid">
 
         <div class="card">
+
             <div class="stat-label">
                 พอร์ตรวม (เงินฝาก + มูลค่าหุ้น)
             </div>
 
-            <div class="stat-value"
+            <div
+                class="stat-value"
                 id="totalAsset"
                 style="color:var(--primary);">
                 0 ฿
             </div>
 
             <div class="progress-container">
-                <div class="progress-bar"
+                <div
+                    class="progress-bar"
                     id="progressBar">
                 </div>
             </div>
 
-            <div style="display:flex; justify-content:space-between;
-                        font-size:0.75rem; color:var(--text-muted);
-                        margin-top:5px;">
+            <div
+                style="display:flex; justify-content:space-between;
+                       font-size:0.75rem; color:var(--text-muted);
+                       margin-top:5px;">
 
-                <span id="percentText">0.0%</span>
+                <span id="percentText">
+                    0.0%
+                </span>
 
                 <span>
                     เป้าหมาย 100,000 ฿
                 </span>
+
             </div>
         </div>
 
@@ -377,13 +389,15 @@
                 เงินสดพักไว้ (Dime! Save)
             </div>
 
-            <div class="stat-value"
+            <div
+                class="stat-value"
                 id="totalCash"
                 style="color:var(--secondary);">
                 0 ฿
             </div>
 
-            <div class="stat-label"
+            <div
+                class="stat-label"
                 style="margin-top:5px;"
                 id="cashPercentText">
                 สัดส่วน: 0%
@@ -398,13 +412,15 @@
                 เงินอยู่ในหุ้น / กองทุน
             </div>
 
-            <div class="stat-value"
+            <div
+                class="stat-value"
                 id="totalInvested"
                 style="color:var(--purple);">
                 0 ฿
             </div>
 
-            <div class="stat-label"
+            <div
+                class="stat-label"
                 style="margin-top:5px;"
                 id="investPercentText">
                 สัดส่วน: 0%
@@ -419,13 +435,15 @@
                 กำไรสะสมที่ขายได้ (Realized Profit)
             </div>
 
-            <div class="stat-value"
+            <div
+                class="stat-value"
                 id="totalProfit"
                 style="color:var(--accent);">
                 0 ฿
             </div>
 
-            <div class="stat-label"
+            <div
+                class="stat-label"
                 style="margin-top:5px;">
                 หมุนเวียนพร้อมลงทุนต่อ 🔄
             </div>
@@ -452,7 +470,8 @@
         </div>
 
 
-        <form id="logForm"
+        <form
+            id="logForm"
             onsubmit="addRecord(event)">
 
             <div class="form-grid">
@@ -523,7 +542,8 @@
                 </div>
 
 
-                <div class="input-group"
+                <div
+                    class="input-group"
                     id="amountGroup">
 
                     <label id="amountLabel">
@@ -542,7 +562,8 @@
 
 
                 <!-- TICKER -->
-                <div class="input-group invest-field"
+                <div
+                    class="input-group invest-field"
                     id="tickerGroup">
 
                     <label>
@@ -558,7 +579,8 @@
 
 
                 <!-- PROFIT -->
-                <div class="input-group invest-field"
+                <div
+                    class="input-group invest-field"
                     id="profitGroup">
 
                     <label>
@@ -611,6 +633,7 @@
             </span>
 
             <button
+                type="button"
                 class="btn-clear"
                 onclick="clearAllData()">
                 🗑️ ล้างข้อมูลทั้งหมด
@@ -659,7 +682,6 @@
 
 
     <!-- FIREBASE -->
-
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
@@ -669,9 +691,9 @@
 
     <script>
 
-        /* =========================
+        /* =====================================================
            FIREBASE CONFIG
-        ========================= */
+        ===================================================== */
 
         const firebaseConfig = {
 
@@ -717,9 +739,9 @@
         let allLogs = [];
 
 
-        /* =========================
+        /* =====================================================
            SECURITY ESCAPE
-        ========================= */
+        ===================================================== */
 
         function esc(value) {
 
@@ -733,9 +755,9 @@
         }
 
 
-        /* =========================
+        /* =====================================================
            FORM
-        ========================= */
+        ===================================================== */
 
         function toggleFormFields() {
 
@@ -763,7 +785,6 @@
 
             }
 
-
             else if (cat === "Buy") {
 
                 tickerGroup.style.display = "flex";
@@ -774,7 +795,6 @@
                     "จำนวนเงินที่ใช้ซื้อหุ้น (บาท):";
 
             }
-
 
             else if (cat === "Sell") {
 
@@ -790,19 +810,17 @@
         }
 
 
-        /* =========================
+        /* =====================================================
            DATE
-        ========================= */
+        ===================================================== */
 
         function setToday() {
 
             const now = new Date();
 
-            document.getElementById("entryDate")
-                .valueAsDate = now;
+            document.getElementById("entryDate").valueAsDate = now;
 
-            document.getElementById("todayDateStr")
-                .innerText =
+            document.getElementById("todayDateStr").innerText =
                 now.toLocaleDateString(
                     "th-TH",
                     {
@@ -816,9 +834,9 @@
         }
 
 
-        /* =========================
+        /* =====================================================
            USER PROFILE
-        ========================= */
+        ===================================================== */
 
         async function ensureUserProfile(user) {
 
@@ -832,8 +850,7 @@
 
             if (existing && existing.name) {
 
-                currentUserName =
-                    existing.name;
+                currentUserName = existing.name;
 
             }
 
@@ -846,8 +863,7 @@
                     );
 
                 currentUserName =
-                    (entered || "").trim()
-                    || "สมาชิก";
+                    (entered || "").trim() || "สมาชิก";
 
 
                 await usersRef
@@ -872,9 +888,9 @@
         }
 
 
-        /* =========================
+        /* =====================================================
            CHANGE NAME
-        ========================= */
+        ===================================================== */
 
         async function changeUserName() {
 
@@ -892,59 +908,76 @@
                 (entered || "").trim();
 
 
-            if (!name ||
-                name === currentUserName) {
+            if (!name || name === currentUserName) {
                 return;
             }
 
 
-            currentUserName = name;
+            try {
+
+                currentUserName = name;
 
 
-            document.getElementById(
-                "currentUserName"
-            ).innerText =
-                currentUserName;
+                document.getElementById(
+                    "currentUserName"
+                ).innerText =
+                    currentUserName;
 
 
-            await usersRef
-                .child(currentUser.uid)
-                .update({
-                    name: currentUserName
+                await usersRef
+                    .child(currentUser.uid)
+                    .update({
+                        name: currentUserName
+                    });
+
+
+                const snap =
+                    await logsRef
+                        .orderByChild("userId")
+                        .equalTo(currentUser.uid)
+                        .once("value");
+
+
+                const updates = {};
+
+
+                snap.forEach(child => {
+
+                    updates[
+                        child.key + "/userName"
+                    ] = currentUserName;
+
                 });
 
 
-            const snap =
-                await logsRef
-                    .orderByChild("userId")
-                    .equalTo(currentUser.uid)
-                    .once("value");
+                if (Object.keys(updates).length) {
 
+                    await logsRef.update(updates);
 
-            const updates = {};
+                }
 
+            }
 
-            snap.forEach(child => {
+            catch (error) {
 
-                updates[
-                    child.key + "/userName"
-                ] = currentUserName;
+                console.error(
+                    "Change name error:",
+                    error
+                );
 
-            });
-
-
-            if (Object.keys(updates).length) {
-
-                await logsRef.update(updates);
+                alert(
+                    "เปลี่ยนชื่อไม่สำเร็จ\n\n" +
+                    error.message
+                );
 
             }
 
         }
 
 
-        /* =========================
-           MIGRATE OLD DATA
-        ========================= */
+        /* =====================================================
+           MIGRATE OLD LOCAL DATA
+        ===================================================== */
 
         async function migrateOldLocalData() {
 
@@ -953,8 +986,8 @@
 
 
             if (
-                localStorage.getItem(marker)
-                || !currentUser
+                localStorage.getItem(marker) ||
+                !currentUser
             ) {
                 return;
             }
@@ -985,8 +1018,8 @@
 
 
                 if (
-                    Array.isArray(oldLogs)
-                    && oldLogs.length
+                    Array.isArray(oldLogs) &&
+                    oldLogs.length
                 ) {
 
                     const updates = {};
@@ -1010,9 +1043,8 @@
                                     currentUserName,
 
                                 createdAt:
-                                    Number(item.id)
-                                    || Date.now()
-                                    + index
+                                    Number(item.id) ||
+                                    Date.now() + index
 
                             };
 
@@ -1020,9 +1052,7 @@
                     );
 
 
-                    await logsRef.update(
-                        updates
-                    );
+                    await logsRef.update(updates);
 
                 }
 
@@ -1046,9 +1076,9 @@
         }
 
 
-        /* =========================
+        /* =====================================================
            ADD RECORD
-        ========================= */
+        ===================================================== */
 
         async function addRecord(e) {
 
@@ -1126,74 +1156,93 @@
             }
 
 
-            await logsRef.push({
+            try {
 
-                id: Date.now(),
+                await logsRef.push({
 
-                userId:
-                    currentUser.uid,
+                    id: Date.now(),
 
-                userName:
-                    currentUserName,
+                    userId:
+                        currentUser.uid,
 
-                date,
+                    userName:
+                        currentUserName,
 
-                category,
+                    date,
 
-                source,
+                    category,
 
-                amount,
+                    source,
 
-                profit,
+                    amount,
 
-                ticker,
+                    profit,
 
-                note,
+                    ticker,
 
-                createdAt:
-                    firebase.database.ServerValue.TIMESTAMP
+                    note,
 
-            });
+                    createdAt:
+                        firebase.database.ServerValue.TIMESTAMP
 
-
-            document.getElementById(
-                "entryAmount"
-            ).value = "";
+                });
 
 
-            document.getElementById(
-                "entryProfit"
-            ).value = "";
+                document.getElementById(
+                    "entryAmount"
+                ).value = "";
 
 
-            document.getElementById(
-                "entryTicker"
-            ).value = "";
+                document.getElementById(
+                    "entryProfit"
+                ).value = "";
 
 
-            document.getElementById(
-                "entryNote"
-            ).value = "";
+                document.getElementById(
+                    "entryTicker"
+                ).value = "";
 
 
-            setToday();
+                document.getElementById(
+                    "entryNote"
+                ).value = "";
+
+
+                setToday();
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Add record error:",
+                    error
+                );
+
+                alert(
+                    "บันทึกไม่สำเร็จ\n\n" +
+                    error.message
+                );
+
+            }
 
         }
 
 
-        /* =================================================
-           DELETE RECORD
-           สำคัญ: ไม่มีการตรวจ userId แล้ว
-           ดังนั้นลบได้ทั้งของเราและของเพื่อน
-        ================================================= */
+        /* =====================================================
+           DELETE ONE RECORD
 
-        async function deleteRecord(id) {
+           สำคัญ:
+           - ไม่ตรวจ userId
+           - ใช้ Firebase key โดยตรง
+           - ลบได้ทั้งของเราและของเพื่อน
+        ===================================================== */
+
+        async function deleteRecord(key) {
 
             const item =
                 allLogs.find(
-                    x =>
-                        String(x.id)
-                        === String(id)
+                    x => x.key === key
                 );
 
 
@@ -1208,15 +1257,18 @@
             }
 
 
+            const amount =
+                Number(item.amount) || 0;
+
+
             const ok =
                 confirm(
-                    "ต้องการลบรายการนี้ใช่หรือไม่?\n\n"
-                    + "ผู้บันทึก: "
-                    + (item.userName || "สมาชิก")
-                    + "\nยอด: "
-                    + (Number(item.amount) || 0)
-                        .toLocaleString("th-TH")
-                    + " ฿"
+                    "ต้องการลบรายการนี้ใช่หรือไม่?\n\n" +
+                    "ผู้บันทึก: " +
+                    (item.userName || "สมาชิก") +
+                    "\nยอด: " +
+                    amount.toLocaleString("th-TH") +
+                    " ฿"
                 );
 
 
@@ -1225,9 +1277,13 @@
 
             try {
 
+                /*
+                    ใช้ key จาก Firebase โดยตรง
+                */
                 await logsRef
-                    .child(item.key)
+                    .child(key)
                     .remove();
+
 
             }
 
@@ -1239,8 +1295,8 @@
                 );
 
                 alert(
-                    "ลบข้อมูลไม่สำเร็จ\n"
-                    + error.message
+                    "ลบข้อมูลไม่สำเร็จ\n\n" +
+                    error.message
                 );
 
             }
@@ -1248,10 +1304,11 @@
         }
 
 
-        /* =========================
+        /* =====================================================
            CLEAR ALL DATA
-           ลบทุกคน ไม่ใช่แค่ของตัวเอง
-        ========================= */
+
+           ลบทุกคน
+        ===================================================== */
 
         async function clearAllData() {
 
@@ -1279,8 +1336,8 @@
 
             const ok =
                 confirm(
-                    "⚠️ ต้องการลบข้อมูลทั้งหมดใช่หรือไม่?\n\n"
-                    + "ข้อมูลของคุณและเพื่อนจะถูกลบทั้งหมด"
+                    "⚠️ ต้องการลบข้อมูลทั้งหมดใช่หรือไม่?\n\n" +
+                    "ข้อมูลของคุณและเพื่อนจะถูกลบทั้งหมด"
                 );
 
 
@@ -1301,8 +1358,8 @@
                 );
 
                 alert(
-                    "ล้างข้อมูลไม่สำเร็จ\n"
-                    + error.message
+                    "ล้างข้อมูลไม่สำเร็จ\n\n" +
+                    error.message
                 );
 
             }
@@ -1310,26 +1367,24 @@
         }
 
 
-        /* =========================
+        /* =====================================================
            UPDATE UI
-        ========================= */
+        ===================================================== */
 
         function updateUI() {
 
             const logs =
-                [...allLogs]
-                .sort(
+                [...allLogs].sort(
                     (a, b) =>
                         (
-                            Number(b.createdAt)
-                            || Number(b.id)
-                            || 0
-                        )
-                        -
+                            Number(b.createdAt) ||
+                            Number(b.id) ||
+                            0
+                        ) -
                         (
-                            Number(a.createdAt)
-                            || Number(a.id)
-                            || 0
+                            Number(a.createdAt) ||
+                            Number(a.id) ||
+                            0
                         )
                 );
 
@@ -1356,6 +1411,10 @@
             let totalProfit = 0;
 
 
+            /*
+                คำนวณยอดจากข้อมูลทั้งหมด
+            */
+
             const reversedLogs =
                 [...logs].reverse();
 
@@ -1363,46 +1422,36 @@
             reversedLogs.forEach(item => {
 
                 if (
-                    item.category
-                    === "Savings"
+                    item.category === "Savings"
                 ) {
 
                     totalCash +=
-                        Number(item.amount)
-                        || 0;
+                        Number(item.amount) || 0;
 
                 }
 
-
                 else if (
-                    item.category
-                    === "Buy"
+                    item.category === "Buy"
                 ) {
 
                     totalCash -=
-                        Number(item.amount)
-                        || 0;
+                        Number(item.amount) || 0;
 
                     totalInvested +=
-                        Number(item.amount)
-                        || 0;
+                        Number(item.amount) || 0;
 
                 }
 
-
                 else if (
-                    item.category
-                    === "Sell"
+                    item.category === "Sell"
                 ) {
 
                     const amount =
-                        Number(item.amount)
-                        || 0;
+                        Number(item.amount) || 0;
 
 
                     const profit =
-                        Number(item.profit)
-                        || 0;
+                        Number(item.profit) || 0;
 
 
                     totalInvested -=
@@ -1422,20 +1471,18 @@
 
 
             if (totalInvested < 0) {
-
                 totalInvested = 0;
-
             }
 
 
             if (totalCash < 0) {
-
                 totalCash = 0;
-
             }
 
 
-            /* EMPTY */
+            /* =================================================
+               EMPTY
+            ================================================= */
 
             if (!logs.length) {
 
@@ -1471,41 +1518,38 @@
 
 
                     const amount =
-                        Number(item.amount)
-                        || 0;
+                        Number(item.amount) || 0;
 
 
                     const profit =
-                        Number(item.profit)
-                        || 0;
+                        Number(item.profit) || 0;
 
 
                     /* SAVINGS */
 
                     if (
-                        item.category
-                        === "Savings"
+                        item.category === "Savings"
                     ) {
 
                         badgeHtml =
-                            '<span class="type-badge badge-savings">'
-                            + '💰 เงินฝาก'
-                            + '</span>';
+                            '<span class="type-badge badge-savings">' +
+                            '💰 เงินฝาก' +
+                            '</span>';
 
 
                         tagClass =
                             (item.source || "")
-                            .includes("Grab")
-                            ? "tag-grab"
-                            : "tag-extra";
+                                .includes("Grab")
+                                ? "tag-grab"
+                                : "tag-extra";
 
 
                         impactText =
-                            '<span style="color:var(--primary);">'
-                            + "+เงินสด "
-                            + amount.toLocaleString("th-TH")
-                            + " ฿"
-                            + "</span>";
+                            '<span style="color:var(--primary);">' +
+                            "+เงินสด " +
+                            amount.toLocaleString("th-TH") +
+                            " ฿" +
+                            "</span>";
 
                     }
 
@@ -1513,22 +1557,21 @@
                     /* BUY */
 
                     else if (
-                        item.category
-                        === "Buy"
+                        item.category === "Buy"
                     ) {
 
                         badgeHtml =
-                            '<span class="type-badge badge-buy">'
-                            + "📈 ซื้อหุ้น"
-                            + "</span>";
+                            '<span class="type-badge badge-buy">' +
+                            "📈 ซื้อหุ้น" +
+                            "</span>";
 
 
                         impactText =
-                            '<span style="color:var(--purple);">'
-                            + "-เงินสด +หุ้น "
-                            + amount.toLocaleString("th-TH")
-                            + " ฿"
-                            + "</span>";
+                            '<span style="color:var(--purple);">' +
+                            "-เงินสด +หุ้น " +
+                            amount.toLocaleString("th-TH") +
+                            " ฿" +
+                            "</span>";
 
                     }
 
@@ -1536,127 +1579,152 @@
                     /* SELL */
 
                     else if (
-                        item.category
-                        === "Sell"
+                        item.category === "Sell"
                     ) {
 
                         badgeHtml =
-                            '<span class="type-badge badge-sell">'
-                            + "📉 ขายหุ้น"
-                            + "</span>";
+                            '<span class="type-badge badge-sell">' +
+                            "📉 ขายหุ้น" +
+                            "</span>";
 
 
                         const profitColor =
                             profit >= 0
-                            ? "var(--accent)"
-                            : "var(--danger)";
+                                ? "var(--accent)"
+                                : "var(--danger)";
 
 
                         const profitSign =
                             profit >= 0
-                            ? "+"
-                            : "";
+                                ? "+"
+                                : "";
 
 
                         impactText =
-                            '<span style="color:var(--secondary);">'
-                            + "+เข้าเงินสด "
-                            + amount.toLocaleString("th-TH")
-                            + " ฿"
-                            + "</span>"
-                            + "<br>"
-                            + '<small style="color:'
-                            + profitColor
-                            + ';">'
-                            + profitSign
-                            + profit.toLocaleString("th-TH")
-                            + " ฿ กำไรสุทธิ"
-                            + "</small>";
+                            '<span style="color:var(--secondary);">' +
+                            "+เข้าเงินสด " +
+                            amount.toLocaleString("th-TH") +
+                            " ฿" +
+                            "</span>" +
+                            "<br>" +
+                            '<small style="color:' +
+                            profitColor +
+                            ';">' +
+                            profitSign +
+                            profit.toLocaleString("th-TH") +
+                            " ฿ กำไรสุทธิ" +
+                            "</small>";
 
                     }
 
 
                     const assetTitle =
-                        item.ticker
-                        || item.source
-                        || "-";
+                        item.ticker ||
+                        item.source ||
+                        "-";
 
 
                     /*
-                       จุดสำคัญ:
-                       ปุ่ม ❌ ถูกสร้างให้ทุกแถว
-                       ไม่มีการเช็กว่าเป็นของใคร
+                        =================================================
+                        จุดสำคัญที่สุด
+
+                        ส่ง item.key ซึ่งเป็น Firebase key
+                        เข้า deleteRecord()
+
+                        ไม่เช็กว่าเป็น user ของใคร
+                    =================================================
                     */
 
                     const deleteButton =
-                        '<button '
-                        + 'class="delete-btn" '
-                        + 'title="ลบรายการนี้" '
-                        + 'onclick=\'deleteRecord('
-                        + JSON.stringify(
-                            String(item.id)
-                        )
-                        + ')\'>'
-                        + "❌"
-                        + "</button>";
+                        document.createElement(
+                            "button"
+                        );
+
+
+                    deleteButton.type =
+                        "button";
+
+
+                    deleteButton.className =
+                        "delete-btn";
+
+
+                    deleteButton.title =
+                        "ลบรายการนี้";
+
+
+                    deleteButton.textContent =
+                        "❌";
+
+
+                    /*
+                        ใช้ addEventListener แทน
+                        inline onclick
+                        ป้องกันปัญหา quote/escape
+                    */
+
+                    deleteButton.addEventListener(
+                        "click",
+                        function () {
+                            deleteRecord(item.key);
+                        }
+                    );
 
 
                     tr.innerHTML =
 
-                        "<td>"
-                        + esc(
-                            item.date || "-"
-                        )
-                        + "</td>"
+                        "<td>" +
+                        esc(item.date || "-") +
+                        "</td>" +
 
+                        "<td>" +
+                        "<strong>" +
+                        esc(
+                            item.userName ||
+                            "สมาชิก"
+                        ) +
+                        "</strong>" +
+                        "</td>" +
 
-                        + "<td>"
-                        + "<strong>"
-                        + esc(
-                            item.userName
-                            || "สมาชิก"
-                        )
-                        + "</strong>"
-                        + "</td>"
+                        "<td>" +
+                        badgeHtml +
+                        "</td>" +
 
+                        "<td>" +
+                        '<span class="tag ' +
+                        tagClass +
+                        '">' +
+                        esc(assetTitle) +
+                        "</span>" +
+                        "</td>" +
 
-                        + "<td>"
-                        + badgeHtml
-                        + "</td>"
-
-
-                        + "<td>"
-                        + '<span class="tag '
-                        + tagClass
-                        + '">'
-                        + esc(assetTitle)
-                        + "</span>"
-                        + "</td>"
-
-
-                        + "<td>"
-                        + "<strong>"
-                        + amount.toLocaleString(
+                        "<td>" +
+                        "<strong>" +
+                        amount.toLocaleString(
                             "th-TH"
-                        )
-                        + " ฿"
-                        + "</strong>"
-                        + "</td>"
+                        ) +
+                        " ฿" +
+                        "</strong>" +
+                        "</td>" +
+
+                        "<td>" +
+                        impactText +
+                        "</td>" +
+
+                        '<td style="color:var(--text-muted);font-size:0.8rem;">' +
+                        esc(detailText) +
+                        "</td>" +
+
+                        "<td></td>";
 
 
-                        + "<td>"
-                        + impactText
-                        + "</td>"
+                    /*
+                        ใส่ปุ่มลง td สุดท้าย
+                    */
 
-
-                        + '<td style="color:var(--text-muted);font-size:0.8rem;">'
-                        + esc(detailText)
-                        + "</td>"
-
-
-                        + "<td>"
-                        + deleteButton
-                        + "</td>";
+                    tr.lastElementChild.appendChild(
+                        deleteButton
+                    );
 
 
                     tbody.appendChild(tr);
@@ -1666,11 +1734,13 @@
             }
 
 
-            /* TOTAL */
+            /* =================================================
+               TOTAL
+            ================================================= */
 
             const totalAsset =
-                totalCash
-                + totalInvested;
+                totalCash +
+                totalInvested;
 
 
             const target =
@@ -1680,8 +1750,7 @@
             const percent =
                 Math.min(
                     100,
-                    (totalAsset / target)
-                    * 100
+                    (totalAsset / target) * 100
                 );
 
 
@@ -1690,8 +1759,8 @@
             ).innerText =
                 totalAsset.toLocaleString(
                     "th-TH"
-                )
-                + " ฿";
+                ) +
+                " ฿";
 
 
             document.getElementById(
@@ -1699,8 +1768,8 @@
             ).innerText =
                 totalCash.toLocaleString(
                     "th-TH"
-                )
-                + " ฿";
+                ) +
+                " ฿";
 
 
             document.getElementById(
@@ -1708,18 +1777,18 @@
             ).innerText =
                 totalInvested.toLocaleString(
                     "th-TH"
-                )
-                + " ฿";
+                ) +
+                " ฿";
 
 
             document.getElementById(
                 "totalProfit"
             ).innerText =
-                (totalProfit >= 0 ? "+" : "")
-                + totalProfit.toLocaleString(
+                (totalProfit >= 0 ? "+" : "") +
+                totalProfit.toLocaleString(
                     "th-TH"
-                )
-                + " ฿";
+                ) +
+                " ฿";
 
 
             document.getElementById(
@@ -1731,51 +1800,64 @@
             document.getElementById(
                 "percentText"
             ).innerText =
-                percent.toFixed(1)
-                + "%";
+                percent.toFixed(1) +
+                "%";
 
 
             const cashPct =
                 totalAsset > 0
-                ? (
-                    (totalCash / totalAsset)
-                    * 100
-                ).toFixed(0)
-                : 0;
+                    ? (
+                        (totalCash / totalAsset) *
+                        100
+                    ).toFixed(0)
+                    : 0;
 
 
             const investPct =
                 totalAsset > 0
-                ? (
-                    (totalInvested / totalAsset)
-                    * 100
-                ).toFixed(0)
-                : 0;
+                    ? (
+                        (totalInvested / totalAsset) *
+                        100
+                    ).toFixed(0)
+                    : 0;
 
 
             document.getElementById(
                 "cashPercentText"
             ).innerText =
-                "สัดส่วน: "
-                + cashPct
-                + "%";
+                "สัดส่วน: " +
+                cashPct +
+                "%";
 
 
             document.getElementById(
                 "investPercentText"
             ).innerText =
-                "สัดส่วน: "
-                + investPct
-                + "%";
+                "สัดส่วน: " +
+                investPct +
+                "%";
 
         }
 
 
-        /* =========================
+        /* =====================================================
            REALTIME FIREBASE
-        ========================= */
+
+           เปิด listener แค่ครั้งเดียว
+        ===================================================== */
+
+        let listenerStarted = false;
+
 
         function startSharedDataListener() {
+
+            if (listenerStarted) {
+                return;
+            }
+
+
+            listenerStarted = true;
+
 
             logsRef.on(
                 "value",
@@ -1783,18 +1865,17 @@
                 snapshot => {
 
                     const data =
-                        snapshot.val()
-                        || {};
+                        snapshot.val() || {};
 
 
                     allLogs =
                         Object.entries(data)
-                        .map(
-                            ([key, value]) => ({
-                                ...value,
-                                key
-                            })
-                        );
+                            .map(
+                                ([key, value]) => ({
+                                    ...value,
+                                    key
+                                })
+                            );
 
 
                     updateUI();
@@ -1821,9 +1902,12 @@
         }
 
 
-        /* =========================
-           START
-        ========================= */
+        /* =====================================================
+           START / BOOT
+
+           เริ่ม listener ทันทีหลัง login
+           ไม่รอ migration
+        ===================================================== */
 
         async function boot() {
 
@@ -1837,35 +1921,58 @@
             try {
 
                 /*
-                   Anonymous login
-                   ผู้ใช้ไม่ต้องกรอกอีเมล
-                   หรือรหัสผ่าน
+                    Anonymous login
                 */
 
                 const result =
-                    await auth
-                        .signInAnonymously();
+                    await auth.signInAnonymously();
 
 
                 currentUser =
                     result.user;
 
 
+                /*
+                    โหลดชื่อผู้ใช้
+                */
+
                 await ensureUserProfile(
                     currentUser
                 );
 
 
-                await migrateOldLocalData();
-
+                /*
+                    สำคัญ:
+                    เปิดข้อมูล Firebase ทันที
+                    เพื่อให้มือถือไม่ต้องรอ migration
+                */
 
                 startSharedDataListener();
+
+
+                /*
+                    migration ทำเบื้องหลัง
+                    ไม่บล็อกหน้าเว็บ
+                */
+
+                migrateOldLocalData()
+                    .catch(error => {
+
+                        console.error(
+                            "Background migration error:",
+                            error
+                        );
+
+                    });
 
             }
 
             catch (error) {
 
-                console.error(error);
+                console.error(
+                    "Firebase boot error:",
+                    error
+                );
 
 
                 document.getElementById(
@@ -1875,15 +1982,18 @@
 
 
                 alert(
-                    "เชื่อมต่อ Firebase ไม่สำเร็จ\n\n"
-                    + "กรุณาตรวจสอบว่าเปิด "
-                    + "Anonymous Authentication แล้ว"
+                    "เชื่อมต่อ Firebase ไม่สำเร็จ\n\n" +
+                    error.message
                 );
 
             }
 
         }
 
+
+        /* =====================================================
+           RUN
+        ===================================================== */
 
         boot();
 
