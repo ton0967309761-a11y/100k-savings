@@ -285,6 +285,63 @@
             display: none;
         }
 
+        /* STYLES FOR CHECKLIST TRACKER MODULE */
+        .checklist-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 10px 12px;
+            background-color: #0f172a;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .checklist-row.done {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-color: rgba(16, 185, 129, 0.4);
+        }
+
+        .checklist-num {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background-color: var(--border);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .checklist-row.done .checklist-num {
+            background-color: var(--primary);
+            color: #000;
+        }
+
+        .btn-lock {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            min-width: 85px;
+        }
+
+        .btn-lock.locked {
+            background-color: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.4);
+        }
+
+        .btn-lock.unlocked {
+            background-color: var(--primary);
+            color: #000;
+        }
+
         @media (max-width: 600px) {
             body {
                 padding: 8px;
@@ -453,7 +510,9 @@
     </div>
 
 
-    <!-- FORM -->
+    <!-- =====================================================
+         1. FORM (ฟอร์มบันทึกการออม ย้ายมาไว้ข้างบน)
+    ===================================================== -->
     <div class="card" style="margin-bottom:20px;">
 
         <div class="card-title">
@@ -623,7 +682,45 @@
     </div>
 
 
-    <!-- HISTORY -->
+    <!-- =====================================================
+         2. CHECKLIST MODULE (ตารางออมเงินรายเดือน ย้ายมาไว้ข้างล่าง)
+    ===================================================== -->
+    <div class="card" style="margin-bottom:20px;">
+        <div class="card-title">
+            <span>🗓️ ตารางออมเงินรายเดือน 22 งวด</span>
+            <button type="button" class="btn-clear" onclick="resetChecklistData()">🔄 ล้างตารางออม</button>
+        </div>
+
+        <!-- Dynamic Targets Banner -->
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap:10px; margin-bottom:15px; background:#0f172a; padding:12px; border-radius:8px; border:1px solid var(--border);">
+            <div>
+                <span class="stat-label">เป้าเฉลี่ยเดือนที่เหลือ</span>
+                <div style="font-size:1.1rem; font-weight:bold; color:var(--primary);" id="chkTargetMonthly">4,546 ฿</div>
+            </div>
+            <div>
+                <span class="stat-label">เป้าเฉลี่ยต่อวัน</span>
+                <div style="font-size:1.1rem; font-weight:bold; color:var(--secondary);" id="chkTargetDaily">150 ฿</div>
+            </div>
+            <div>
+                <span class="stat-label">เดดไลน์เป้าหมาย</span>
+                <div style="font-size:0.9rem; font-weight:bold; color:var(--text-main); margin-top:2px;">11 มิ.ย. 2571</div>
+            </div>
+        </div>
+
+        <!-- Month Checklist Items List -->
+        <div id="checklistContainer" style="max-height: 400px; overflow-y: auto; padding-right: 4px;">
+            <!-- JS dynamic rows here -->
+        </div>
+
+        <div style="font-size:0.75rem; color:var(--text-muted); margin-top:10px; background:rgba(245, 158, 11, 0.1); padding:8px 12px; border-radius:6px; border:1px solid rgba(245, 158, 11, 0.2);">
+            🔒 <strong>หมายเหตุ:</strong> พิมพ์ยอดเงินแล้วกด <strong>"✓ ติ๊กเช็ค"</strong> เพื่อล็อกไม่ให้แก้ไข หากเดือนไหนออมไม่ถึงเป้า ยอดที่ขาดจะถูกทบไปถัวเฉลี่ยในเดือนถัดๆ ไปให้อัตโนมัติครับ
+        </div>
+    </div>
+
+
+    <!-- =====================================================
+         3. HISTORY (ตารางประวัติการออม/ซื้อขาย)
+    ===================================================== -->
     <div class="card">
 
         <div class="card-title">
@@ -737,6 +834,129 @@
         let currentUserName = "";
 
         let allLogs = [];
+
+
+        /* =====================================================
+           CHECKLIST MODULE LOGIC
+        ===================================================== */
+
+        const CHK_TARGET = 100000;
+        const CHK_TOTAL_MONTHS = 22;
+        const CHK_START_YEAR = 2026;
+        const CHK_START_MONTH = 7; // August
+        const CHK_MONTH_NAMES = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."];
+
+        let checklistData = [];
+
+        function initChecklistData() {
+            const saved = localStorage.getItem('savings_checklist_v3');
+            if (saved) {
+                checklistData = JSON.parse(saved);
+            } else {
+                checklistData = [];
+                for (let i = 0; i < CHK_TOTAL_MONTHS; i++) {
+                    const d = new Date(CHK_START_YEAR, CHK_START_MONTH + i, 1);
+                    const label = `${CHK_MONTH_NAMES[d.getMonth()]} ${(d.getFullYear() + 543).toString().substring(2)}`;
+                    checklistData.push({
+                        id: i + 1,
+                        label: label,
+                        actualAmount: 0,
+                        isDone: false
+                    });
+                }
+            }
+            renderChecklist();
+        }
+
+        function updateChecklistActual(index, value) {
+            const val = parseFloat(value) || 0;
+            checklistData[index].actualAmount = val;
+            saveChecklistData();
+        }
+
+        function toggleChecklistDone(index) {
+            checklistData[index].isDone = !checklistData[index].isDone;
+            saveChecklistData();
+            renderChecklist();
+        }
+
+        function saveChecklistData() {
+            localStorage.setItem('savings_checklist_v3', JSON.stringify(checklistData));
+            updateChecklistSummary();
+        }
+
+        function updateChecklistSummary() {
+            let totalSaved = 0;
+            let doneCount = 0;
+
+            checklistData.forEach(m => {
+                totalSaved += m.actualAmount;
+                if (m.isDone) doneCount++;
+            });
+
+            const remainingAmount = Math.max(0, CHK_TARGET - totalSaved);
+            const remainingMonths = Math.max(1, CHK_TOTAL_MONTHS - doneCount);
+
+            const dynamicMonthlyTarget = Math.ceil(remainingAmount / remainingMonths);
+            const dynamicDailyTarget = Math.ceil(remainingAmount / (remainingMonths * 30.4));
+
+            document.getElementById('chkTargetMonthly').innerText = (remainingAmount > 0 ? dynamicMonthlyTarget.toLocaleString("th-TH") : 0) + ' ฿';
+            document.getElementById('chkTargetDaily').innerText = (remainingAmount > 0 ? dynamicDailyTarget.toLocaleString("th-TH") : 0) + ' ฿';
+
+            checklistData.forEach((m, idx) => {
+                const targetBadge = document.getElementById(`chk-badge-${idx}`);
+                if (targetBadge && !m.isDone) {
+                    targetBadge.innerText = `เป้า: ${dynamicMonthlyTarget.toLocaleString("th-TH")} ฿`;
+                }
+            });
+        }
+
+        function resetChecklistData() {
+            if (confirm('ต้องการล้างข้อมูลตารางการออมรายเดือนใช่หรือไม่?')) {
+                localStorage.removeItem('savings_checklist_v3');
+                initChecklistData();
+            }
+        }
+
+        function renderChecklist() {
+            const container = document.getElementById('checklistContainer');
+            if (!container) return;
+            container.innerHTML = '';
+
+            checklistData.forEach((m, idx) => {
+                const row = document.createElement('div');
+                row.className = `checklist-row ${m.isDone ? 'done' : ''}`;
+
+                row.innerHTML = `
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <span class="checklist-num">${m.id}</span>
+                        <div>
+                            <div style="font-size:0.85rem; font-weight:bold; color:var(--text-main);">${m.label}</div>
+                            <div id="chk-badge-${idx}" style="font-size:0.7rem; color:var(--text-muted);">${m.isDone ? '🔒 ล็อกข้อมูลแล้ว' : 'เป้า: 4,546 ฿'}</div>
+                        </div>
+                    </div>
+
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <input type="number" 
+                            id="chk-input-${idx}" 
+                            value="${m.actualAmount || ''}" 
+                            placeholder="0" 
+                            ${m.isDone ? 'disabled' : ''} 
+                            oninput="updateChecklistActual(${idx}, this.value)"
+                            style="width:100px; text-align:right; font-size:0.85rem; padding:6px 8px; ${m.isDone ? 'opacity:0.5; background:#0f172a;' : ''}">
+
+                        <button type="button" 
+                            onclick="toggleChecklistDone(${idx})" 
+                            class="btn-lock ${m.isDone ? 'locked' : 'unlocked'}">
+                            ${m.isDone ? '🔒 ปลดล็อก' : '✓ ติ๊กเช็ค'}
+                        </button>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+
+            updateChecklistSummary();
+        }
 
 
         /* =====================================================
@@ -1231,11 +1451,6 @@
 
         /* =====================================================
            DELETE ONE RECORD
-
-           สำคัญ:
-           - ไม่ตรวจ userId
-           - ใช้ Firebase key โดยตรง
-           - ลบได้ทั้งของเราและของเพื่อน
         ===================================================== */
 
         async function deleteRecord(key) {
@@ -1277,13 +1492,9 @@
 
             try {
 
-                /*
-                    ใช้ key จาก Firebase โดยตรง
-                */
                 await logsRef
                     .child(key)
                     .remove();
-
 
             }
 
@@ -1306,8 +1517,6 @@
 
         /* =====================================================
            CLEAR ALL DATA
-
-           ลบทุกคน
         ===================================================== */
 
         async function clearAllData() {
@@ -1411,10 +1620,6 @@
             let totalProfit = 0;
 
 
-            /*
-                คำนวณยอดจากข้อมูลทั้งหมด
-            */
-
             const reversedLogs =
                 [...logs].reverse();
 
@@ -1480,10 +1685,6 @@
             }
 
 
-            /* =================================================
-               EMPTY
-            ================================================= */
-
             if (!logs.length) {
 
                 emptyMsg.style.display =
@@ -1525,8 +1726,6 @@
                         Number(item.profit) || 0;
 
 
-                    /* SAVINGS */
-
                     if (
                         item.category === "Savings"
                     ) {
@@ -1553,9 +1752,6 @@
 
                     }
 
-
-                    /* BUY */
-
                     else if (
                         item.category === "Buy"
                     ) {
@@ -1574,9 +1770,6 @@
                             "</span>";
 
                     }
-
-
-                    /* SELL */
 
                     else if (
                         item.category === "Sell"
@@ -1624,17 +1817,6 @@
                         "-";
 
 
-                    /*
-                        =================================================
-                        จุดสำคัญที่สุด
-
-                        ส่ง item.key ซึ่งเป็น Firebase key
-                        เข้า deleteRecord()
-
-                        ไม่เช็กว่าเป็น user ของใคร
-                    =================================================
-                    */
-
                     const deleteButton =
                         document.createElement(
                             "button"
@@ -1656,12 +1838,6 @@
                     deleteButton.textContent =
                         "❌";
 
-
-                    /*
-                        ใช้ addEventListener แทน
-                        inline onclick
-                        ป้องกันปัญหา quote/escape
-                    */
 
                     deleteButton.addEventListener(
                         "click",
@@ -1718,10 +1894,6 @@
                         "<td></td>";
 
 
-                    /*
-                        ใส่ปุ่มลง td สุดท้าย
-                    */
-
                     tr.lastElementChild.appendChild(
                         deleteButton
                     );
@@ -1733,10 +1905,6 @@
 
             }
 
-
-            /* =================================================
-               TOTAL
-            ================================================= */
 
             const totalAsset =
                 totalCash +
@@ -1842,8 +2010,6 @@
 
         /* =====================================================
            REALTIME FIREBASE
-
-           เปิด listener แค่ครั้งเดียว
         ===================================================== */
 
         let listenerStarted = false;
@@ -1904,12 +2070,11 @@
 
         /* =====================================================
            START / BOOT
-
-           เริ่ม listener ทันทีหลัง login
-           ไม่รอ migration
         ===================================================== */
 
         async function boot() {
+
+            initChecklistData();
 
             toggleFormFields();
 
@@ -1920,10 +2085,6 @@
 
             try {
 
-                /*
-                    Anonymous login
-                */
-
                 const result =
                     await auth.signInAnonymously();
 
@@ -1932,28 +2093,13 @@
                     result.user;
 
 
-                /*
-                    โหลดชื่อผู้ใช้
-                */
-
                 await ensureUserProfile(
                     currentUser
                 );
 
 
-                /*
-                    สำคัญ:
-                    เปิดข้อมูล Firebase ทันที
-                    เพื่อให้มือถือไม่ต้องรอ migration
-                */
-
                 startSharedDataListener();
 
-
-                /*
-                    migration ทำเบื้องหลัง
-                    ไม่บล็อกหน้าเว็บ
-                */
 
                 migrateOldLocalData()
                     .catch(error => {
