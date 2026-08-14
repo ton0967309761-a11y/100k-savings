@@ -14,6 +14,7 @@
             --accent: #f59e0b;
             --danger: #ef4444;
             --purple: #8b5cf6;
+            --usd-color: #06b6d4;
             --bg: #0f172a;
             --card-bg: #1e293b;
             --text-main: #f8fafc;
@@ -33,7 +34,7 @@
             color: var(--text-main);
             line-height: 1.6;
             padding: 15px;
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
@@ -61,7 +62,7 @@
 
         .summary-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 15px;
             margin-bottom: 20px;
         }
@@ -88,7 +89,7 @@
         }
 
         .stat-value {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: bold;
             color: var(--text-main);
         }
@@ -234,6 +235,11 @@
             color: #c084fc;
         }
 
+        .tag-fx {
+            background: rgba(6, 182, 212, 0.2);
+            color: #22d3ee;
+        }
+
         .type-badge {
             display: inline-block;
             padding: 2px 6px;
@@ -260,6 +266,12 @@
             border: 1px solid #f59e0b;
         }
 
+        .badge-fx {
+            background: rgba(6, 182, 212, 0.15);
+            color: #22d3ee;
+            border: 1px solid #06b6d4;
+        }
+
         .delete-btn {
             color: var(--danger);
             background: none;
@@ -281,11 +293,10 @@
             font-size: 0.85rem;
         }
 
-        .invest-field {
+        .invest-field, .fx-field, .currency-field {
             display: none;
         }
 
-        /* STYLES FOR CHECKLIST TRACKER MODULE */
         .checklist-row {
             display: flex;
             align-items: center;
@@ -366,340 +377,139 @@
 
     <header>
         <h1>💡ผมไม่ได้ทำความฝันให้สำเร็จในวันเดียว 🕰🦥</h1>
-
-        <p class="subtitle">
-            💡แค่ผมเดินเข้าใกล้มันมากขึ้นในทุกวันก็พอ 🕰️🦥
-        </p>
+        <p class="subtitle">💡แค่ผมเดินเข้าใกล้มันมากขึ้นในทุกวันก็พอ 🕰️🦥</p>
     </header>
 
-
     <!-- USER -->
-    <div class="card"
-        style="margin-bottom:20px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
-
+    <div class="card" style="margin-bottom:20px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
         <div>
             <div class="stat-label">ผู้ใช้งาน</div>
-
-            <div
-                style="font-weight:bold; font-size:1.05rem;"
-                id="currentUserName">
-                กำลังเชื่อมต่อ...
-            </div>
-
-            <div class="stat-label">
-                ☁️ ข้อมูลนี้แชร์กับเพื่อนในฐานข้อมูลออนไลน์
-            </div>
+            <div style="font-weight:bold; font-size:1.05rem;" id="currentUserName">กำลังเชื่อมต่อ...</div>
+            <div class="stat-label">☁️ ข้อมูลนี้แชร์กับเพื่อนในฐานข้อมูลออนไลน์</div>
         </div>
-
-        <button
-            type="button"
-            class="btn-clear"
-            onclick="changeUserName()">
-            ✏️ เปลี่ยนชื่อ
-        </button>
+        <button type="button" class="btn-clear" onclick="changeUserName()">✏️ เปลี่ยนชื่อ</button>
     </div>
-
 
     <!-- SUMMARY -->
     <div class="summary-grid">
-
         <div class="card">
-
-            <div class="stat-label">
-                พอร์ตรวม (เงินฝาก + มูลค่าหุ้น)
-            </div>
-
-            <div
-                class="stat-value"
-                id="totalAsset"
-                style="color:var(--primary);">
-                0 ฿
-            </div>
-
+            <div class="stat-label">เงินสด THB (Dime! Save)</div>
+            <div class="stat-value" id="totalCash" style="color:var(--secondary);">0.00 ฿</div>
             <div class="progress-container">
-                <div
-                    class="progress-bar"
-                    id="progressBar">
-                </div>
+                <div class="progress-bar" id="progressBar"></div>
             </div>
-
-            <div
-                style="display:flex; justify-content:space-between;
-                       font-size:0.75rem; color:var(--text-muted);
-                       margin-top:5px;">
-
-                <span id="percentText">
-                    0.0%
-                </span>
-
-                <span>
-                    เป้าหมาย 100,000 ฿
-                </span>
-
+            <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-muted); margin-top:5px;">
+                <span id="percentText">0.00%</span>
+                <span>เป้าหมาย 100,000.00 ฿</span>
             </div>
         </div>
-
 
         <div class="card">
-
-            <div class="stat-label">
-                เงินสดพักไว้ (Dime! Save)
-            </div>
-
-            <div
-                class="stat-value"
-                id="totalCash"
-                style="color:var(--secondary);">
-                0 ฿
-            </div>
-
-            <div
-                class="stat-label"
-                style="margin-top:5px;"
-                id="cashPercentText">
-                สัดส่วน: 0%
-            </div>
-
+            <div class="stat-label">Dime USD</div>
+            <div class="stat-value" id="totalUsdCash" style="color:var(--usd-color);">$0.00</div>
+            <div class="stat-label" style="margin-top:5px; color:var(--text-muted);">แยกการถือครอง USD</div>
         </div>
-
 
         <div class="card">
-
-            <div class="stat-label">
-                เงินอยู่ในหุ้น / กองทุน
-            </div>
-
-            <div
-                class="stat-value"
-                id="totalInvested"
-                style="color:var(--purple);">
-                0 ฿
-            </div>
-
-            <div
-                class="stat-label"
-                style="margin-top:5px;"
-                id="investPercentText">
-                สัดส่วน: 0%
-            </div>
-
+            <div class="stat-label">เงินอยู่ในหุ้น / กองทุน</div>
+            <div class="stat-value" id="totalInvested" style="color:var(--purple);">0.00 ฿</div>
+            <div class="stat-label" style="margin-top:5px;" id="investPercentText">สัดส่วน: 0.00%</div>
         </div>
-
 
         <div class="card">
-
-            <div class="stat-label">
-                กำไรสะสมที่ขายได้ (Realized Profit)
-            </div>
-
-            <div
-                class="stat-value"
-                id="totalProfit"
-                style="color:var(--accent);">
-                0 ฿
-            </div>
-
-            <div
-                class="stat-label"
-                style="margin-top:5px;">
-                หมุนเวียนพร้อมลงทุนต่อ 🔄
-            </div>
-
+            <div class="stat-label">กำไรสะสมขายหุ้น (Realized Profit)</div>
+            <div class="stat-value" id="totalProfit" style="color:var(--accent);">0.00 ฿</div>
+            <div class="stat-label" style="margin-top:5px;">หมุนเวียนพร้อมลงทุนต่อ 🔄</div>
         </div>
-
     </div>
 
-
-    <!-- =====================================================
-         1. FORM (ฟอร์มบันทึกการออม ย้ายมาไว้ข้างบน)
-    ===================================================== -->
+    <!-- FORM -->
     <div class="card" style="margin-bottom:20px;">
-
         <div class="card-title">
-
-            <span>
-                ➕ บันทึกการออม / ซื้อ-ขายหุ้น
-            </span>
-
-            <span
-                style="font-size:0.75rem; color:var(--text-muted);"
-                id="todayDateStr">
-            </span>
-
+            <span>➕ บันทึกการออม / แลกเงิน / ซื้อ-ขายหุ้น</span>
+            <span style="font-size:0.75rem; color:var(--text-muted);" id="todayDateStr"></span>
         </div>
 
-
-        <form
-            id="logForm"
-            onsubmit="addRecord(event)">
-
+        <form id="logForm" onsubmit="addRecord(event)">
             <div class="form-grid">
-
                 <div class="input-group">
-
-                    <label>
-                        วันที่บันทึก:
-                    </label>
-
-                    <input
-                        type="date"
-                        id="entryDate"
-                        required>
-
+                    <label>วันที่บันทึก:</label>
+                    <input type="date" id="entryDate" required>
                 </div>
 
-
                 <div class="input-group">
-
-                    <label>
-                        ประเภทรายการ:
-                    </label>
-
-                    <select
-                        id="entryCategory"
-                        onchange="toggleFormFields()">
-
-                        <option value="Savings">
-                            💰 ฝากเงินออมสด / พักไว้
-                        </option>
-
-                        <option value="Buy">
-                            📈 ซื้อหุ้น / กองทุน (Buy)
-                        </option>
-
-                        <option value="Sell">
-                            📉 ขายหุ้น / กองทุน (Sell)
-                        </option>
-
+                    <label>ประเภทรายการ:</label>
+                    <select id="entryCategory" onchange="toggleFormFields()">
+                        <option value="Savings">💰 ฝากเงินออมสด / พักไว้</option>
+                        <option value="Exchange_THB_USD">💵 แลกเปลี่ยนเงิน (THB ➔ USD)</option>
+                        <option value="Exchange_USD_THB">💵 แลกเปลี่ยนเงิน (USD ➔ THB)</option>
+                        <option value="Buy">📈 ซื้อหุ้น / กองทุน (Buy)</option>
+                        <option value="Sell">📉 ขายหุ้น / กองทุน (Sell)</option>
                     </select>
-
                 </div>
 
+                <div class="input-group currency-field" id="currencyGroup">
+                    <label>สกุลเงินที่ทำรายการ:</label>
+                    <select id="entryCurrency" onchange="updateAmountLabel()">
+                        <option value="THB">฿ (บาท / THB)</option>
+                        <option value="USD">$ (ดอลลาร์ / USD)</option>
+                    </select>
+                </div>
 
-                <div class="input-group">
-
-                    <label>
-                        แหล่งที่มาเงินทุน:
-                    </label>
-
+                <div class="input-group" id="sourceGroup">
+                    <label>แหล่งที่มาเงินทุน:</label>
                     <select id="entrySource">
-
-                        <option value="Grab">
-                            Grab
-                        </option>
-
-                        <option value="งานเสริม / ขายของ">
-                            งานเสริม / ขายของ
-                        </option>
-
-                        <option value="อื่นๆ">
-                            อื่นๆ
-                        </option>
-
+                        <option value="Grab">Grab</option>
+                        <option value="งานเสริม / ขายของ">งานเสริม / ขายของ</option>
+                        <option value="อื่นๆ">อื่นๆ</option>
                     </select>
-
                 </div>
 
-
-                <div
-                    class="input-group"
-                    id="amountGroup">
-
-                    <label id="amountLabel">
-                        จำนวนเงินที่ฝากเพิ่ม (บาท):
-                    </label>
-
-                    <input
-                        type="number"
-                        id="entryAmount"
-                        placeholder="กรอกยอดเงินจริง"
-                        min="0"
-                        step="any"
-                        required>
-
+                <div class="input-group" id="amountGroup">
+                    <label id="amountLabel">จำนวนเงินที่ฝากเพิ่ม (บาท):</label>
+                    <input type="number" id="entryAmount" placeholder="กรอกยอดเงินจริง" min="0" step="0.01" required>
                 </div>
 
-
-                <!-- TICKER -->
-                <div
-                    class="input-group invest-field"
-                    id="tickerGroup">
-
-                    <label>
-                        ชื่อหุ้น / กองทุน:
-                    </label>
-
-                    <input
-                        type="text"
-                        id="entryTicker"
-                        placeholder="เช่น AAPL, NVDA, S&P500">
-
+                <div class="input-group fx-field" id="rateGroup">
+                    <label id="rateLabel">อัตราแลกเปลี่ยนขณะแลกเงิน (บาท / 1 USD):</label>
+                    <input type="number" id="entryRate" placeholder="เช่น 35.50" step="0.01">
                 </div>
 
-
-                <!-- PROFIT -->
-                <div
-                    class="input-group invest-field"
-                    id="profitGroup">
-
-                    <label>
-                        กำไร/ขาดทุน สุทธิจากการขาย (บาท):
-                    </label>
-
-                    <input
-                        type="number"
-                        id="entryProfit"
-                        placeholder="กำไรใส่ + / ขาดทุนใส่ -"
-                        step="any">
-
+                <div class="input-group invest-field" id="tickerGroup">
+                    <label>ชื่อหุ้น / กองทุน:</label>
+                    <input type="text" id="entryTicker" placeholder="เช่น AAPL, NVDA, S&P500">
                 </div>
 
+                <div class="input-group invest-field" id="profitGroup">
+                    <label id="profitLabel">กำไร/ขาดทุน สุทธิจากการขาย:</label>
+                    <input type="number" id="entryProfit" placeholder="กำไรใส่ + / ขาดทุนใส่ -" step="0.01">
+                </div>
 
                 <div class="input-group">
-
-                    <label>
-                        บันทึกเพิ่มเติม (ถ้ามี):
-                    </label>
-
-                    <input
-                        type="text"
-                        id="entryNote"
-                        placeholder="เช่น ขายเอากำไรหมุนไปซื้อตัวอื่นต่อ">
-
+                    <label>บันทึกเพิ่มเติม (ถ้ามี):</label>
+                    <input type="text" id="entryNote" placeholder="เช่น แลกเงินเก็บไว้ / ซื้อหุ้นสหรัฐ">
                 </div>
-
             </div>
 
-
-            <button
-                type="submit"
-                class="btn">
-                💾 บันทึกรายการ
-            </button>
-
+            <button type="submit" class="btn">💾 บันทึกรายการ</button>
         </form>
-
     </div>
 
-
-    <!-- =====================================================
-         2. CHECKLIST MODULE (ตารางออมเงินรายเดือน ย้ายมาไว้ข้างล่าง)
-    ===================================================== -->
+    <!-- CHECKLIST -->
     <div class="card" style="margin-bottom:20px;">
         <div class="card-title">
             <span>🗓️ ตารางออมเงินรายเดือน 22 งวด</span>
             <button type="button" class="btn-clear" onclick="resetChecklistData()">🔄 ล้างตารางออม</button>
         </div>
 
-        <!-- Dynamic Targets Banner -->
         <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap:10px; margin-bottom:15px; background:#0f172a; padding:12px; border-radius:8px; border:1px solid var(--border);">
             <div>
                 <span class="stat-label">เป้าเฉลี่ยเดือนที่เหลือ</span>
-                <div style="font-size:1.1rem; font-weight:bold; color:var(--primary);" id="chkTargetMonthly">4,546 ฿</div>
+                <div style="font-size:1.1rem; font-weight:bold; color:var(--primary);" id="chkTargetMonthly">4,545.45 ฿</div>
             </div>
             <div>
                 <span class="stat-label">เป้าเฉลี่ยต่อวัน</span>
-                <div style="font-size:1.1rem; font-weight:bold; color:var(--secondary);" id="chkTargetDaily">150 ฿</div>
+                <div style="font-size:1.1rem; font-weight:bold; color:var(--secondary);" id="chkTargetDaily">149.52 ฿</div>
             </div>
             <div>
                 <span class="stat-label">เดดไลน์เป้าหมาย</span>
@@ -707,44 +517,23 @@
             </div>
         </div>
 
-        <!-- Month Checklist Items List -->
-        <div id="checklistContainer" style="max-height: 400px; overflow-y: auto; padding-right: 4px;">
-            <!-- JS dynamic rows here -->
-        </div>
+        <div id="checklistContainer" style="max-height: 400px; overflow-y: auto; padding-right: 4px;"></div>
 
         <div style="font-size:0.75rem; color:var(--text-muted); margin-top:10px; background:rgba(245, 158, 11, 0.1); padding:8px 12px; border-radius:6px; border:1px solid rgba(245, 158, 11, 0.2);">
-            🔒 <strong>หมายเหตุ:</strong> พิมพ์ยอดเงินแล้วกด <strong>"✓ ติ๊กเช็ค"</strong> เพื่อล็อกไม่ให้แก้ไข หากเดือนไหนออมไม่ถึงเป้า ยอดที่ขาดจะถูกทบไปถัวเฉลี่ยในเดือนถัดๆ ไปให้อัตโนมัติครับ
+            🔒 <strong>หมายเหตุ:</strong> พิมพ์ยอดเงินแล้วกด <strong>"✓ ติ๊กเช็ค"</strong> เพื่อล็อกไม่ให้แก้ไข
         </div>
     </div>
 
-
-    <!-- =====================================================
-         3. HISTORY (ตารางประวัติการออม/ซื้อขาย)
-    ===================================================== -->
+    <!-- HISTORY -->
     <div class="card">
-
         <div class="card-title">
-
-            <span>
-                📜 ประวัติการออม ซื้อ-ขาย & หมุนเวียนเงิน
-            </span>
-
-            <button
-                type="button"
-                class="btn-clear"
-                onclick="clearAllData()">
-                🗑️ ล้างข้อมูลทั้งหมด
-            </button>
-
+            <span>📜 ประวัติการออม ซื้อ-ขาย & หมุนเวียนเงิน</span>
+            <button type="button" class="btn-clear" onclick="clearAllData()">🗑️ ล้างข้อมูลทั้งหมด</button>
         </div>
 
-
         <div class="history-table-container">
-
             <table>
-
                 <thead>
-
                     <tr>
                         <th>วันที่</th>
                         <th>ผู้บันทึก</th>
@@ -755,95 +544,53 @@
                         <th>รายละเอียด / โน้ต</th>
                         <th>จัดการ</th>
                     </tr>
-
                 </thead>
-
-                <tbody id="historyBody">
-                </tbody>
-
+                <tbody id="historyBody"></tbody>
             </table>
 
-
-            <div
-                id="emptyMessage"
-                class="empty-msg">
-
-                ยังไม่มีประวัติการบันทึก
-                เริ่มบันทึกวันแรกได้เลย! 🚀
-
+            <div id="emptyMessage" class="empty-msg">
+                ยังไม่มีประวัติการบันทึก เริ่มบันทึกวันแรกได้เลย! 🚀
             </div>
-
         </div>
-
     </div>
 
-
-    <!-- FIREBASE -->
+    <!-- FIREBASE SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
-
     <script>
-
-        /* =====================================================
-           FIREBASE CONFIG
-        ===================================================== */
-
         const firebaseConfig = {
-
             apiKey: "AIzaSyBcviRS1zRri103yo2rnS-iGmsjIwUAY9g",
-
             authDomain: "k-savings.firebaseapp.com",
-
-            databaseURL:
-                "https://k-savings-default-rtdb.asia-southeast1.firebasedatabase.app",
-
+            databaseURL: "https://k-savings-default-rtdb.asia-southeast1.firebasedatabase.app",
             projectId: "k-savings",
-
-            storageBucket:
-                "k-savings.firebasestorage.app",
-
-            messagingSenderId:
-                "825044662195",
-
-            appId:
-                "1:825044662195:web:b796b35992aa4c2663bdc6",
-
-            measurementId:
-                "G-YRM7B7MMVZ"
+            storageBucket: "k-savings.firebasestorage.app",
+            messagingSenderId: "825044662195",
+            appId: "1:825044662195:web:b796b35992aa4c2663bdc6",
+            measurementId: "G-YRM7B7MMVZ"
         };
-
 
         firebase.initializeApp(firebaseConfig);
 
-
         const auth = firebase.auth();
-
         const db = firebase.database();
-
         const logsRef = db.ref("shared/logs");
-
         const usersRef = db.ref("users");
 
-
         let currentUser = null;
-
         let currentUserName = "";
-
         let allLogs = [];
 
-
-        /* =====================================================
-           CHECKLIST MODULE LOGIC
-        ===================================================== */
+        function fmt2(num) {
+            const val = Number(num) || 0;
+            return val.toLocaleString("th-TH", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
 
         const CHK_TARGET = 100000;
         const CHK_TOTAL_MONTHS = 22;
         const CHK_START_YEAR = 2026;
-        const CHK_START_MONTH = 7; // August
+        const CHK_START_MONTH = 7; 
         const CHK_MONTH_NAMES = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."];
 
         let checklistData = [];
@@ -897,16 +644,16 @@
             const remainingAmount = Math.max(0, CHK_TARGET - totalSaved);
             const remainingMonths = Math.max(1, CHK_TOTAL_MONTHS - doneCount);
 
-            const dynamicMonthlyTarget = Math.ceil(remainingAmount / remainingMonths);
-            const dynamicDailyTarget = Math.ceil(remainingAmount / (remainingMonths * 30.4));
+            const dynamicMonthlyTarget = remainingAmount / remainingMonths;
+            const dynamicDailyTarget = remainingAmount / (remainingMonths * 30.4);
 
-            document.getElementById('chkTargetMonthly').innerText = (remainingAmount > 0 ? dynamicMonthlyTarget.toLocaleString("th-TH") : 0) + ' ฿';
-            document.getElementById('chkTargetDaily').innerText = (remainingAmount > 0 ? dynamicDailyTarget.toLocaleString("th-TH") : 0) + ' ฿';
+            document.getElementById('chkTargetMonthly').innerText = (remainingAmount > 0 ? fmt2(dynamicMonthlyTarget) : "0.00") + ' ฿';
+            document.getElementById('chkTargetDaily').innerText = (remainingAmount > 0 ? fmt2(dynamicDailyTarget) : "0.00") + ' ฿';
 
             checklistData.forEach((m, idx) => {
                 const targetBadge = document.getElementById(`chk-badge-${idx}`);
                 if (targetBadge && !m.isDone) {
-                    targetBadge.innerText = `เป้า: ${dynamicMonthlyTarget.toLocaleString("th-TH")} ฿`;
+                    targetBadge.innerText = `เป้า: ${fmt2(dynamicMonthlyTarget)} ฿`;
                 }
             });
         }
@@ -932,18 +679,19 @@
                         <span class="checklist-num">${m.id}</span>
                         <div>
                             <div style="font-size:0.85rem; font-weight:bold; color:var(--text-main);">${m.label}</div>
-                            <div id="chk-badge-${idx}" style="font-size:0.7rem; color:var(--text-muted);">${m.isDone ? '🔒 ล็อกข้อมูลแล้ว' : 'เป้า: 4,546 ฿'}</div>
+                            <div id="chk-badge-${idx}" style="font-size:0.7rem; color:var(--text-muted);">${m.isDone ? '🔒 ล็อกข้อมูลแล้ว' : 'เป้า: 4,545.45 ฿'}</div>
                         </div>
                     </div>
 
                     <div style="display:flex; align-items:center; gap:8px;">
                         <input type="number" 
                             id="chk-input-${idx}" 
-                            value="${m.actualAmount || ''}" 
-                            placeholder="0" 
+                            value="${m.actualAmount ? m.actualAmount.toFixed(2) : ''}" 
+                            placeholder="0.00" 
+                            step="0.01"
                             ${m.isDone ? 'disabled' : ''} 
                             oninput="updateChecklistActual(${idx}, this.value)"
-                            style="width:100px; text-align:right; font-size:0.85rem; padding:6px 8px; ${m.isDone ? 'opacity:0.5; background:#0f172a;' : ''}">
+                            style="width:110px; text-align:right; font-size:0.85rem; padding:6px 8px; ${m.isDone ? 'opacity:0.5; background:#0f172a;' : ''}">
 
                         <button type="button" 
                             onclick="toggleChecklistDone(${idx})" 
@@ -958,1192 +706,456 @@
             updateChecklistSummary();
         }
 
-
-        /* =====================================================
-           SECURITY ESCAPE
-        ===================================================== */
-
         function esc(value) {
-
             return String(value ?? "")
                 .replace(/&/g, "&amp;")
                 .replace(/</g, "&lt;")
                 .replace(/>/g, "&gt;")
                 .replace(/"/g, "&quot;")
                 .replace(/'/g, "&#039;");
-
         }
-
-
-        /* =====================================================
-           FORM
-        ===================================================== */
 
         function toggleFormFields() {
+            const cat = document.getElementById("entryCategory").value;
+            const tickerGroup = document.getElementById("tickerGroup");
+            const profitGroup = document.getElementById("profitGroup");
+            const rateGroup = document.getElementById("rateGroup");
+            const sourceGroup = document.getElementById("sourceGroup");
+            const currencyGroup = document.getElementById("currencyGroup");
 
-            const cat =
-                document.getElementById("entryCategory").value;
-
-            const tickerGroup =
-                document.getElementById("tickerGroup");
-
-            const profitGroup =
-                document.getElementById("profitGroup");
-
-            const amountLabel =
-                document.getElementById("amountLabel");
-
+            tickerGroup.style.display = "none";
+            profitGroup.style.display = "none";
+            rateGroup.style.display = "none";
+            sourceGroup.style.display = "flex";
+            currencyGroup.style.display = "none";
 
             if (cat === "Savings") {
-
-                tickerGroup.style.display = "none";
-
-                profitGroup.style.display = "none";
-
-                amountLabel.innerText =
-                    "จำนวนเงินที่ฝากเพิ่ม (บาท):";
-
+                currencyGroup.style.display = "flex";
             }
-
+            else if (cat === "Exchange_THB_USD") {
+                rateGroup.style.display = "flex";
+                sourceGroup.style.display = "none";
+            }
+            else if (cat === "Exchange_USD_THB") {
+                rateGroup.style.display = "flex";
+                sourceGroup.style.display = "none";
+            }
             else if (cat === "Buy") {
-
                 tickerGroup.style.display = "flex";
-
-                profitGroup.style.display = "none";
-
-                amountLabel.innerText =
-                    "จำนวนเงินที่ใช้ซื้อหุ้น (บาท):";
-
+                currencyGroup.style.display = "flex";
             }
-
             else if (cat === "Sell") {
-
                 tickerGroup.style.display = "flex";
-
                 profitGroup.style.display = "flex";
-
-                amountLabel.innerText =
-                    "ยอดเงินที่ได้จากการขายคืนทั้งหมด (บาท):";
-
+                currencyGroup.style.display = "flex";
             }
 
+            updateAmountLabel();
         }
 
+        function updateAmountLabel() {
+            const cat = document.getElementById("entryCategory").value;
+            const currency = document.getElementById("entryCurrency").value;
+            const amountLabel = document.getElementById("amountLabel");
+            const profitLabel = document.getElementById("profitLabel");
+            const symbol = currency === "USD" ? "$" : "บาท";
 
-        /* =====================================================
-           DATE
-        ===================================================== */
+            if (cat === "Savings") {
+                amountLabel.innerText = `จำนวนเงินที่ฝากเพิ่ม (${symbol}):`;
+            }
+            else if (cat === "Exchange_THB_USD") {
+                amountLabel.innerText = "จำนวนเงินบาทที่นำไปแลก (THB):";
+            }
+            else if (cat === "Exchange_USD_THB") {
+                amountLabel.innerText = "จำนวนเงินดอลลาร์ที่นำไปแลกคืน (USD):";
+            }
+            else if (cat === "Buy") {
+                amountLabel.innerText = `จำนวนเงินที่ใช้ซื้อหุ้น (${symbol}):`;
+            }
+            else if (cat === "Sell") {
+                amountLabel.innerText = `ยอดเงินที่ได้จากการขายคืนทั้งหมด (${symbol}):`;
+                profitLabel.innerText = `กำไร/ขาดทุน สุทธิจากการขาย (${symbol}):`;
+            }
+        }
 
         function setToday() {
-
             const now = new Date();
-
             document.getElementById("entryDate").valueAsDate = now;
-
             document.getElementById("todayDateStr").innerText =
-                now.toLocaleDateString(
-                    "th-TH",
-                    {
-                        weekday: "long",
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric"
-                    }
-                );
-
+                now.toLocaleDateString("th-TH", {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric"
+                });
         }
-
-
-        /* =====================================================
-           USER PROFILE
-        ===================================================== */
 
         async function ensureUserProfile(user) {
-
-            const snap =
-                await usersRef
-                    .child(user.uid)
-                    .once("value");
-
+            const snap = await usersRef.child(user.uid).once("value");
             const existing = snap.val();
 
-
             if (existing && existing.name) {
-
                 currentUserName = existing.name;
+            } else {
+                const entered = prompt("ตั้งชื่อที่จะแสดงให้เพื่อนเห็น:", "สมาชิก");
+                currentUserName = (entered || "").trim() || "สมาชิก";
 
+                await usersRef.child(user.uid).set({
+                    name: currentUserName,
+                    createdAt: firebase.database.ServerValue.TIMESTAMP
+                });
             }
 
-            else {
-
-                const entered =
-                    prompt(
-                        "ตั้งชื่อที่จะแสดงให้เพื่อนเห็น:",
-                        "สมาชิก"
-                    );
-
-                currentUserName =
-                    (entered || "").trim() || "สมาชิก";
-
-
-                await usersRef
-                    .child(user.uid)
-                    .set({
-
-                        name: currentUserName,
-
-                        createdAt:
-                            firebase.database.ServerValue.TIMESTAMP
-
-                    });
-
-            }
-
-
-            document.getElementById(
-                "currentUserName"
-            ).innerText =
-                currentUserName;
-
+            document.getElementById("currentUserName").innerText = currentUserName;
         }
-
-
-        /* =====================================================
-           CHANGE NAME
-        ===================================================== */
 
         async function changeUserName() {
-
             if (!currentUser) return;
 
+            const entered = prompt("เปลี่ยนชื่อที่จะแสดงให้เพื่อนเห็น:", currentUserName);
+            const name = (entered || "").trim();
 
-            const entered =
-                prompt(
-                    "เปลี่ยนชื่อที่จะแสดงให้เพื่อนเห็น:",
-                    currentUserName
-                );
-
-
-            const name =
-                (entered || "").trim();
-
-
-            if (!name || name === currentUserName) {
-                return;
-            }
-
+            if (!name || name === currentUserName) return;
 
             try {
-
                 currentUserName = name;
+                document.getElementById("currentUserName").innerText = currentUserName;
 
+                await usersRef.child(currentUser.uid).update({ name: currentUserName });
 
-                document.getElementById(
-                    "currentUserName"
-                ).innerText =
-                    currentUserName;
-
-
-                await usersRef
-                    .child(currentUser.uid)
-                    .update({
-                        name: currentUserName
-                    });
-
-
-                const snap =
-                    await logsRef
-                        .orderByChild("userId")
-                        .equalTo(currentUser.uid)
-                        .once("value");
-
-
+                const snap = await logsRef.orderByChild("userId").equalTo(currentUser.uid).once("value");
                 const updates = {};
-
-
                 snap.forEach(child => {
-
-                    updates[
-                        child.key + "/userName"
-                    ] = currentUserName;
-
+                    updates[child.key + "/userName"] = currentUserName;
                 });
-
 
                 if (Object.keys(updates).length) {
-
                     await logsRef.update(updates);
-
                 }
-
+            } catch (error) {
+                console.error("Change name error:", error);
+                alert("เปลี่ยนชื่อไม่สำเร็จ\n\n" + error.message);
             }
-
-            catch (error) {
-
-                console.error(
-                    "Change name error:",
-                    error
-                );
-
-                alert(
-                    "เปลี่ยนชื่อไม่สำเร็จ\n\n" +
-                    error.message
-                );
-
-            }
-
         }
-
-
-        /* =====================================================
-           MIGRATE OLD LOCAL DATA
-        ===================================================== */
-
-        async function migrateOldLocalData() {
-
-            const marker =
-                "100k_firebase_migrated_v1";
-
-
-            if (
-                localStorage.getItem(marker) ||
-                !currentUser
-            ) {
-                return;
-            }
-
-
-            const old =
-                localStorage.getItem(
-                    "100k_savings_invest_v3"
-                );
-
-
-            if (!old) {
-
-                localStorage.setItem(
-                    marker,
-                    "1"
-                );
-
-                return;
-
-            }
-
-
-            try {
-
-                const oldLogs =
-                    JSON.parse(old);
-
-
-                if (
-                    Array.isArray(oldLogs) &&
-                    oldLogs.length
-                ) {
-
-                    const updates = {};
-
-
-                    oldLogs.forEach(
-                        (item, index) => {
-
-                            const key =
-                                logsRef.push().key;
-
-
-                            updates[key] = {
-
-                                ...item,
-
-                                userId:
-                                    currentUser.uid,
-
-                                userName:
-                                    currentUserName,
-
-                                createdAt:
-                                    Number(item.id) ||
-                                    Date.now() + index
-
-                            };
-
-                        }
-                    );
-
-
-                    await logsRef.update(updates);
-
-                }
-
-
-                localStorage.setItem(
-                    marker,
-                    "1"
-                );
-
-            }
-
-            catch (error) {
-
-                console.error(
-                    "Migration error:",
-                    error
-                );
-
-            }
-
-        }
-
-
-        /* =====================================================
-           ADD RECORD
-        ===================================================== */
 
         async function addRecord(e) {
-
             e.preventDefault();
 
-
             if (!currentUser) {
-
-                alert(
-                    "กำลังเชื่อมต่อ Firebase กรุณารอสักครู่แล้วลองใหม่"
-                );
-
+                alert("กำลังเชื่อมต่อ Firebase กรุณารอสักครู่แล้วลองใหม่");
                 return;
-
             }
 
-
-            const date =
-                document.getElementById(
-                    "entryDate"
-                ).value;
-
-
-            const category =
-                document.getElementById(
-                    "entryCategory"
-                ).value;
-
-
-            const source =
-                document.getElementById(
-                    "entrySource"
-                ).value;
-
-
-            const amount =
-                parseFloat(
-                    document.getElementById(
-                        "entryAmount"
-                    ).value
-                ) || 0;
-
-
-            const profit =
-                parseFloat(
-                    document.getElementById(
-                        "entryProfit"
-                    ).value
-                ) || 0;
-
-
-            const ticker =
-                document.getElementById(
-                    "entryTicker"
-                ).value
-                .trim()
-                .toUpperCase();
-
-
-            const note =
-                document.getElementById(
-                    "entryNote"
-                ).value
-                .trim();
-
+            const date = document.getElementById("entryDate").value;
+            const category = document.getElementById("entryCategory").value;
+            const currency = document.getElementById("entryCurrency").value;
+            const source = document.getElementById("entrySource").value;
+            const amount = parseFloat(document.getElementById("entryAmount").value) || 0;
+            const rate = parseFloat(document.getElementById("entryRate").value) || 0;
+            const profit = parseFloat(document.getElementById("entryProfit").value) || 0;
+            const ticker = document.getElementById("entryTicker").value.trim().toUpperCase();
+            const note = document.getElementById("entryNote").value.trim();
 
             if (amount <= 0) {
-
-                alert(
-                    "กรุณากรอกจำนวนเงิน"
-                );
-
+                alert("กรุณากรอกจำนวนเงินให้ถูกต้อง");
                 return;
-
             }
 
+            if ((category === "Exchange_THB_USD" || category === "Exchange_USD_THB") && rate <= 0) {
+                alert("กรุณากรอกอัตราแลกเปลี่ยนขณะแลกเงิน");
+                return;
+            }
 
             try {
-
                 await logsRef.push({
-
                     id: Date.now(),
-
-                    userId:
-                        currentUser.uid,
-
-                    userName:
-                        currentUserName,
-
+                    userId: currentUser.uid,
+                    userName: currentUserName,
                     date,
-
                     category,
-
+                    currency,
                     source,
-
                     amount,
-
+                    rate,
                     profit,
-
                     ticker,
-
                     note,
-
-                    createdAt:
-                        firebase.database.ServerValue.TIMESTAMP
-
+                    createdAt: firebase.database.ServerValue.TIMESTAMP
                 });
 
-
-                document.getElementById(
-                    "entryAmount"
-                ).value = "";
-
-
-                document.getElementById(
-                    "entryProfit"
-                ).value = "";
-
-
-                document.getElementById(
-                    "entryTicker"
-                ).value = "";
-
-
-                document.getElementById(
-                    "entryNote"
-                ).value = "";
-
+                document.getElementById("entryAmount").value = "";
+                document.getElementById("entryRate").value = "";
+                document.getElementById("entryProfit").value = "";
+                document.getElementById("entryTicker").value = "";
+                document.getElementById("entryNote").value = "";
 
                 setToday();
-
+            } catch (error) {
+                console.error("Add record error:", error);
+                alert("บันทึกไม่สำเร็จ\n\n" + error.message);
             }
-
-            catch (error) {
-
-                console.error(
-                    "Add record error:",
-                    error
-                );
-
-                alert(
-                    "บันทึกไม่สำเร็จ\n\n" +
-                    error.message
-                );
-
-            }
-
         }
-
-
-        /* =====================================================
-           DELETE ONE RECORD
-        ===================================================== */
 
         async function deleteRecord(key) {
-
-            const item =
-                allLogs.find(
-                    x => x.key === key
-                );
-
-
+            const item = allLogs.find(x => x.key === key);
             if (!item) {
-
-                alert(
-                    "ไม่พบข้อมูลรายการนี้"
-                );
-
+                alert("ไม่พบข้อมูลรายการนี้");
                 return;
-
             }
 
-
-            const amount =
-                Number(item.amount) || 0;
-
-
-            const ok =
-                confirm(
-                    "ต้องการลบรายการนี้ใช่หรือไม่?\n\n" +
-                    "ผู้บันทึก: " +
-                    (item.userName || "สมาชิก") +
-                    "\nยอด: " +
-                    amount.toLocaleString("th-TH") +
-                    " ฿"
-                );
-
+            const amount = Number(item.amount) || 0;
+            const symbol = item.currency === "USD" ? "$" : "฿";
+            const ok = confirm(
+                "ต้องการลบรายการนี้ใช่หรือไม่?\n\n" +
+                "ผู้บันทึก: " + (item.userName || "สมาชิก") +
+                "\nยอด: " + symbol + fmt2(amount)
+            );
 
             if (!ok) return;
 
-
             try {
-
-                await logsRef
-                    .child(key)
-                    .remove();
-
+                await logsRef.child(key).remove();
+            } catch (error) {
+                console.error("Delete error:", error);
+                alert("ลบข้อมูลไม่สำเร็จ\n\n" + error.message);
             }
-
-            catch (error) {
-
-                console.error(
-                    "Delete error:",
-                    error
-                );
-
-                alert(
-                    "ลบข้อมูลไม่สำเร็จ\n\n" +
-                    error.message
-                );
-
-            }
-
         }
-
-
-        /* =====================================================
-           CLEAR ALL DATA
-        ===================================================== */
 
         async function clearAllData() {
-
             if (!currentUser) {
-
-                alert(
-                    "ยังไม่ได้เชื่อมต่อ Firebase"
-                );
-
+                alert("ยังไม่ได้เชื่อมต่อ Firebase");
                 return;
-
             }
-
 
             if (!allLogs.length) {
-
-                alert(
-                    "ยังไม่มีข้อมูลให้ลบ"
-                );
-
+                alert("ยังไม่มีข้อมูลให้ลบ");
                 return;
-
             }
 
-
-            const ok =
-                confirm(
-                    "⚠️ ต้องการลบข้อมูลทั้งหมดใช่หรือไม่?\n\n" +
-                    "ข้อมูลของคุณและเพื่อนจะถูกลบทั้งหมด"
-                );
-
-
+            const ok = confirm("⚠️ ต้องการลบข้อมูลทั้งหมดใช่หรือไม่?\n\nข้อมูลของคุณและเพื่อนจะถูกลบทั้งหมด");
             if (!ok) return;
 
-
             try {
-
                 await logsRef.remove();
-
+            } catch (error) {
+                console.error("Clear error:", error);
+                alert("ล้างข้อมูลไม่สำเร็จ\n\n" + error.message);
             }
-
-            catch (error) {
-
-                console.error(
-                    "Clear error:",
-                    error
-                );
-
-                alert(
-                    "ล้างข้อมูลไม่สำเร็จ\n\n" +
-                    error.message
-                );
-
-            }
-
         }
-
-
-        /* =====================================================
-           UPDATE UI
-        ===================================================== */
 
         function updateUI() {
+            const logs = [...allLogs].sort((a, b) =>
+                (Number(b.createdAt) || Number(b.id) || 0) -
+                (Number(a.createdAt) || Number(a.id) || 0)
+            );
 
-            const logs =
-                [...allLogs].sort(
-                    (a, b) =>
-                        (
-                            Number(b.createdAt) ||
-                            Number(b.id) ||
-                            0
-                        ) -
-                        (
-                            Number(a.createdAt) ||
-                            Number(a.id) ||
-                            0
-                        )
-                );
-
-
-            const tbody =
-                document.getElementById(
-                    "historyBody"
-                );
-
-
-            const emptyMsg =
-                document.getElementById(
-                    "emptyMessage"
-                );
-
-
+            const tbody = document.getElementById("historyBody");
+            const emptyMsg = document.getElementById("emptyMessage");
             tbody.innerHTML = "";
 
+            let totalCashThb = 0;
+            let totalCashUsd = 0;
+            let totalInvestedThb = 0;
+            let totalInvestedUsd = 0;
+            let totalProfitThb = 0;
+            let totalProfitUsd = 0;
 
-            let totalCash = 0;
-
-            let totalInvested = 0;
-
-            let totalProfit = 0;
-
-
-            const reversedLogs =
-                [...logs].reverse();
-
+            const reversedLogs = [...logs].reverse();
 
             reversedLogs.forEach(item => {
+                const amount = Number(item.amount) || 0;
+                const rate = Number(item.rate) || 0;
+                const profit = Number(item.profit) || 0;
+                const curr = item.currency || "THB";
 
-                if (
-                    item.category === "Savings"
-                ) {
-
-                    totalCash +=
-                        Number(item.amount) || 0;
-
+                if (item.category === "Savings") {
+                    if (curr === "USD") {
+                        totalCashUsd += amount;
+                    } else {
+                        totalCashThb += amount;
+                    }
                 }
-
-                else if (
-                    item.category === "Buy"
-                ) {
-
-                    totalCash -=
-                        Number(item.amount) || 0;
-
-                    totalInvested +=
-                        Number(item.amount) || 0;
-
+                else if (item.category === "Exchange_THB_USD") {
+                    totalCashThb -= amount;
+                    if (rate > 0) totalCashUsd += (amount / rate);
                 }
-
-                else if (
-                    item.category === "Sell"
-                ) {
-
-                    const amount =
-                        Number(item.amount) || 0;
-
-
-                    const profit =
-                        Number(item.profit) || 0;
-
-
-                    totalInvested -=
-                        amount - profit;
-
-
-                    totalCash +=
-                        amount;
-
-
-                    totalProfit +=
-                        profit;
-
+                else if (item.category === "Exchange_USD_THB") {
+                    totalCashUsd -= amount;
+                    if (rate > 0) totalCashThb += (amount * rate);
                 }
-
+                else if (item.category === "Buy") {
+                    if (curr === "USD") {
+                        totalCashUsd -= amount;
+                        totalInvestedUsd += amount;
+                    } else {
+                        totalCashThb -= amount;
+                        totalInvestedThb += amount;
+                    }
+                }
+                else if (item.category === "Sell") {
+                    if (curr === "USD") {
+                        totalInvestedUsd -= (amount - profit);
+                        totalCashUsd += amount;
+                        totalProfitUsd += profit;
+                    } else {
+                        totalInvestedThb -= (amount - profit);
+                        totalCashThb += amount;
+                        totalProfitThb += profit;
+                    }
+                }
             });
 
-
-            if (totalInvested < 0) {
-                totalInvested = 0;
-            }
-
-
-            if (totalCash < 0) {
-                totalCash = 0;
-            }
-
+            if (totalCashThb < 0) totalCashThb = 0;
+            if (totalCashUsd < 0) totalCashUsd = 0;
+            if (totalInvestedThb < 0) totalInvestedThb = 0;
+            if (totalInvestedUsd < 0) totalInvestedUsd = 0;
 
             if (!logs.length) {
-
-                emptyMsg.style.display =
-                    "block";
-
-            }
-
-            else {
-
-                emptyMsg.style.display =
-                    "none";
-
+                emptyMsg.style.display = "block";
+            } else {
+                emptyMsg.style.display = "none";
 
                 logs.forEach(item => {
-
-                    const tr =
-                        document.createElement(
-                            "tr"
-                        );
-
-
+                    const tr = document.createElement("tr");
                     let badgeHtml = "";
-
-                    let tagClass =
-                        "tag-dime";
-
+                    let tagClass = "tag-dime";
                     let impactText = "";
+                    const detailText = item.note || "-";
+                    const amount = Number(item.amount) || 0;
+                    const rate = Number(item.rate) || 0;
+                    const profit = Number(item.profit) || 0;
+                    const curr = item.currency || "THB";
+                    const symbol = curr === "USD" ? "$" : "฿";
 
-
-                    const detailText =
-                        item.note || "-";
-
-
-                    const amount =
-                        Number(item.amount) || 0;
-
-
-                    const profit =
-                        Number(item.profit) || 0;
-
-
-                    if (
-                        item.category === "Savings"
-                    ) {
-
-                        badgeHtml =
-                            '<span class="type-badge badge-savings">' +
-                            '💰 เงินฝาก' +
-                            '</span>';
-
-
-                        tagClass =
-                            (item.source || "")
-                                .includes("Grab")
-                                ? "tag-grab"
-                                : "tag-extra";
-
-
-                        impactText =
-                            '<span style="color:var(--primary);">' +
-                            "+เงินสด " +
-                            amount.toLocaleString("th-TH") +
-                            " ฿" +
-                            "</span>";
-
+                    if (item.category === "Savings") {
+                        badgeHtml = `<span class="type-badge badge-savings">💰 เงินฝาก (${curr})</span>`;
+                        tagClass = (item.source || "").includes("Grab") ? "tag-grab" : "tag-extra";
+                        impactText = `<span style="color:var(--primary);">+เงินสด ${symbol}${fmt2(amount)}</span>`;
+                    }
+                    else if (item.category === "Exchange_THB_USD") {
+                        badgeHtml = '<span class="type-badge badge-fx">💵 แลก THB➔USD</span>';
+                        tagClass = "tag-fx";
+                        const getUsd = rate > 0 ? (amount / rate) : 0;
+                        impactText = `<span style="color:var(--danger);">- ${fmt2(amount)} ฿</span><br>` +
+                                     `<span style="color:var(--usd-color);">+ $${fmt2(getUsd)} (@${fmt2(rate)})</span>`;
+                    }
+                    else if (item.category === "Exchange_USD_THB") {
+                        badgeHtml = '<span class="type-badge badge-fx">💵 แลก USD➔THB</span>';
+                        tagClass = "tag-fx";
+                        const getThb = rate > 0 ? (amount * rate) : 0;
+                        impactText = `<span style="color:var(--usd-color);">- $${fmt2(amount)}</span><br>` +
+                                     `<span style="color:var(--primary);">+ ${fmt2(getThb)} ฿ (@${fmt2(rate)})</span>`;
+                    }
+                    else if (item.category === "Buy") {
+                        badgeHtml = `<span class="type-badge badge-buy">📈 ซื้อหุ้น (${curr})</span>`;
+                        impactText = `<span style="color:var(--purple);">-เงินสด +หุ้น ${symbol}${fmt2(amount)}</span>`;
+                    }
+                    else if (item.category === "Sell") {
+                        badgeHtml = `<span class="type-badge badge-sell">📉 ขายหุ้น (${curr})</span>`;
+                        const profitColor = profit >= 0 ? "var(--accent)" : "var(--danger)";
+                        const profitSign = profit >= 0 ? "+" : "";
+                        impactText = `<span style="color:var(--secondary);">+เงินสด ${symbol}${fmt2(amount)}</span><br>` +
+                                     `<small style="color:${profitColor};">${profitSign}${symbol}${fmt2(profit)} กำไร</small>`;
                     }
 
-                    else if (
-                        item.category === "Buy"
-                    ) {
-
-                        badgeHtml =
-                            '<span class="type-badge badge-buy">' +
-                            "📈 ซื้อหุ้น" +
-                            "</span>";
-
-
-                        impactText =
-                            '<span style="color:var(--purple);">' +
-                            "-เงินสด +หุ้น " +
-                            amount.toLocaleString("th-TH") +
-                            " ฿" +
-                            "</span>";
-
+                    // --- แสดงชื่อ สินทรัพย์ / แหล่งเงิน ---
+                    let assetTitle = "-";
+                    if (item.category === "Savings") {
+                        assetTitle = item.source || "ไม่ระบุแหล่งเงิน";
+                    } else if (item.category === "Buy" || item.category === "Sell") {
+                        assetTitle = item.ticker || "หุ้น / กองทุน";
+                    } else if (item.category.includes("Exchange")) {
+                        assetTitle = "Dime! USD";
+                    } else {
+                        assetTitle = item.ticker || item.source || "-";
                     }
 
-                    else if (
-                        item.category === "Sell"
-                    ) {
+                    const deleteButton = document.createElement("button");
+                    deleteButton.type = "button";
+                    deleteButton.className = "delete-btn";
+                    deleteButton.title = "ลบรายการนี้";
+                    deleteButton.textContent = "❌";
+                    deleteButton.addEventListener("click", function () { deleteRecord(item.key); });
 
-                        badgeHtml =
-                            '<span class="type-badge badge-sell">' +
-                            "📉 ขายหุ้น" +
-                            "</span>";
+                    tr.innerHTML = `
+                        <td>${esc(item.date || "-")}</td>
+                        <td><strong>${esc(item.userName || "สมาชิก")}</strong></td>
+                        <td>${badgeHtml}</td>
+                        <td><span class="tag ${tagClass}">${esc(assetTitle)}</span></td>
+                        <td><strong>${symbol}${fmt2(amount)}</strong></td>
+                        <td>${impactText}</td>
+                        <td style="color:var(--text-muted);font-size:0.8rem;">${esc(detailText)}</td>
+                        <td></td>
+                    `;
 
-
-                        const profitColor =
-                            profit >= 0
-                                ? "var(--accent)"
-                                : "var(--danger)";
-
-
-                        const profitSign =
-                            profit >= 0
-                                ? "+"
-                                : "";
-
-
-                        impactText =
-                            '<span style="color:var(--secondary);">' +
-                            "+เข้าเงินสด " +
-                            amount.toLocaleString("th-TH") +
-                            " ฿" +
-                            "</span>" +
-                            "<br>" +
-                            '<small style="color:' +
-                            profitColor +
-                            ';">' +
-                            profitSign +
-                            profit.toLocaleString("th-TH") +
-                            " ฿ กำไรสุทธิ" +
-                            "</small>";
-
-                    }
-
-
-                    const assetTitle =
-                        item.ticker ||
-                        item.source ||
-                        "-";
-
-
-                    const deleteButton =
-                        document.createElement(
-                            "button"
-                        );
-
-
-                    deleteButton.type =
-                        "button";
-
-
-                    deleteButton.className =
-                        "delete-btn";
-
-
-                    deleteButton.title =
-                        "ลบรายการนี้";
-
-
-                    deleteButton.textContent =
-                        "❌";
-
-
-                    deleteButton.addEventListener(
-                        "click",
-                        function () {
-                            deleteRecord(item.key);
-                        }
-                    );
-
-
-                    tr.innerHTML =
-
-                        "<td>" +
-                        esc(item.date || "-") +
-                        "</td>" +
-
-                        "<td>" +
-                        "<strong>" +
-                        esc(
-                            item.userName ||
-                            "สมาชิก"
-                        ) +
-                        "</strong>" +
-                        "</td>" +
-
-                        "<td>" +
-                        badgeHtml +
-                        "</td>" +
-
-                        "<td>" +
-                        '<span class="tag ' +
-                        tagClass +
-                        '">' +
-                        esc(assetTitle) +
-                        "</span>" +
-                        "</td>" +
-
-                        "<td>" +
-                        "<strong>" +
-                        amount.toLocaleString(
-                            "th-TH"
-                        ) +
-                        " ฿" +
-                        "</strong>" +
-                        "</td>" +
-
-                        "<td>" +
-                        impactText +
-                        "</td>" +
-
-                        '<td style="color:var(--text-muted);font-size:0.8rem;">' +
-                        esc(detailText) +
-                        "</td>" +
-
-                        "<td></td>";
-
-
-                    tr.lastElementChild.appendChild(
-                        deleteButton
-                    );
-
-
+                    tr.lastElementChild.appendChild(deleteButton);
                     tbody.appendChild(tr);
-
                 });
-
             }
 
+            const target = 100000;
+            const percent = Math.min(100, (totalCashThb / target) * 100);
 
-            const totalAsset =
-                totalCash +
-                totalInvested;
+            document.getElementById("totalCash").innerText = fmt2(totalCashThb) + " ฿";
+            document.getElementById("totalUsdCash").innerText = "$" + fmt2(totalCashUsd);
+            
+            let investedText = fmt2(totalInvestedThb) + " ฿";
+            if (totalInvestedUsd > 0) {
+                investedText += ` (+ $${fmt2(totalInvestedUsd)})`;
+            }
+            document.getElementById("totalInvested").innerText = investedText;
 
+            let profitText = (totalProfitThb >= 0 ? "+" : "") + fmt2(totalProfitThb) + " ฿";
+            if (totalProfitUsd !== 0) {
+                profitText += ` (${totalProfitUsd >= 0 ? "+" : ""}$${fmt2(totalProfitUsd)})`;
+            }
+            document.getElementById("totalProfit").innerText = profitText;
 
-            const target =
-                100000;
+            document.getElementById("progressBar").style.width = percent + "%";
+            document.getElementById("percentText").innerText = fmt2(percent) + "%";
 
+            const totalAssetThb = totalCashThb + totalInvestedThb;
+            const investPct = totalAssetThb > 0 ? ((totalInvestedThb / totalAssetThb) * 100) : 0;
 
-            const percent =
-                Math.min(
-                    100,
-                    (totalAsset / target) * 100
-                );
-
-
-            document.getElementById(
-                "totalAsset"
-            ).innerText =
-                totalAsset.toLocaleString(
-                    "th-TH"
-                ) +
-                " ฿";
-
-
-            document.getElementById(
-                "totalCash"
-            ).innerText =
-                totalCash.toLocaleString(
-                    "th-TH"
-                ) +
-                " ฿";
-
-
-            document.getElementById(
-                "totalInvested"
-            ).innerText =
-                totalInvested.toLocaleString(
-                    "th-TH"
-                ) +
-                " ฿";
-
-
-            document.getElementById(
-                "totalProfit"
-            ).innerText =
-                (totalProfit >= 0 ? "+" : "") +
-                totalProfit.toLocaleString(
-                    "th-TH"
-                ) +
-                " ฿";
-
-
-            document.getElementById(
-                "progressBar"
-            ).style.width =
-                percent + "%";
-
-
-            document.getElementById(
-                "percentText"
-            ).innerText =
-                percent.toFixed(1) +
-                "%";
-
-
-            const cashPct =
-                totalAsset > 0
-                    ? (
-                        (totalCash / totalAsset) *
-                        100
-                    ).toFixed(0)
-                    : 0;
-
-
-            const investPct =
-                totalAsset > 0
-                    ? (
-                        (totalInvested / totalAsset) *
-                        100
-                    ).toFixed(0)
-                    : 0;
-
-
-            document.getElementById(
-                "cashPercentText"
-            ).innerText =
-                "สัดส่วน: " +
-                cashPct +
-                "%";
-
-
-            document.getElementById(
-                "investPercentText"
-            ).innerText =
-                "สัดส่วน: " +
-                investPct +
-                "%";
-
+            document.getElementById("investPercentText").innerText = "สัดส่วน THB: " + fmt2(investPct) + "%";
         }
-
-
-        /* =====================================================
-           REALTIME FIREBASE
-        ===================================================== */
 
         let listenerStarted = false;
 
-
         function startSharedDataListener() {
-
-            if (listenerStarted) {
-                return;
-            }
-
-
+            if (listenerStarted) return;
             listenerStarted = true;
 
-
-            logsRef.on(
-                "value",
-
-                snapshot => {
-
-                    const data =
-                        snapshot.val() || {};
-
-
-                    allLogs =
-                        Object.entries(data)
-                            .map(
-                                ([key, value]) => ({
-                                    ...value,
-                                    key
-                                })
-                            );
-
-
-                    updateUI();
-
-                },
-
-
-                error => {
-
-                    console.error(
-                        "Database read error:",
-                        error
-                    );
-
-
-                    document.getElementById(
-                        "currentUserName"
-                    ).innerText =
-                        "เชื่อมต่อฐานข้อมูลไม่สำเร็จ";
-
-                }
-            );
-
+            logsRef.on("value", snapshot => {
+                const data = snapshot.val() || {};
+                allLogs = Object.entries(data).map(([key, value]) => ({ ...value, key }));
+                updateUI();
+            }, error => {
+                console.error("Database read error:", error);
+                document.getElementById("currentUserName").innerText = "เชื่อมต่อฐานข้อมูลไม่สำเร็จ";
+            });
         }
-
-
-        /* =====================================================
-           START / BOOT
-        ===================================================== */
 
         async function boot() {
-
             initChecklistData();
-
             toggleFormFields();
-
             setToday();
-
             updateUI();
 
-
             try {
-
-                const result =
-                    await auth.signInAnonymously();
-
-
-                currentUser =
-                    result.user;
-
-
-                await ensureUserProfile(
-                    currentUser
-                );
-
-
+                const result = await auth.signInAnonymously();
+                currentUser = result.user;
+                await ensureUserProfile(currentUser);
                 startSharedDataListener();
-
-
-                migrateOldLocalData()
-                    .catch(error => {
-
-                        console.error(
-                            "Background migration error:",
-                            error
-                        );
-
-                    });
-
+            } catch (error) {
+                console.error("Firebase boot error:", error);
+                document.getElementById("currentUserName").innerText = "เชื่อมต่อไม่ได้";
+                alert("เชื่อมต่อ Firebase ไม่สำเร็จ\n\n" + error.message);
             }
-
-            catch (error) {
-
-                console.error(
-                    "Firebase boot error:",
-                    error
-                );
-
-
-                document.getElementById(
-                    "currentUserName"
-                ).innerText =
-                    "เชื่อมต่อไม่ได้";
-
-
-                alert(
-                    "เชื่อมต่อ Firebase ไม่สำเร็จ\n\n" +
-                    error.message
-                );
-
-            }
-
         }
-
-
-        /* =====================================================
-           RUN
-        ===================================================== */
 
         boot();
 
     </script>
-
 </body>
 </html>
